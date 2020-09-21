@@ -45,7 +45,7 @@ paths:
         "400":
           description: "Invalid Voucher"
 
-  /voucher/v1/findByStatus:
+  /voucher/v1/find/by-status:
     post:
       tags:
       - "voucher"
@@ -69,7 +69,7 @@ paths:
         "400":
           description: "Invalid Voucher"
           
-  /voucher/v1/findOne:
+  /voucher/v1/find/one:
     post:
       tags:
       - "voucher"
@@ -93,11 +93,11 @@ paths:
         "400":
           description: "Invalid Voucher"
           
-  /voucher/v1/remove:
+  /voucher/v1/delete:
     post:
       tags:
       - "voucher"
-      summary: "remove um voucher."
+      summary: "deleta um voucher."
       description: "descrição TODO: como usar esse endpoint"
       operationId: "removeVoucher"
       produces:
@@ -141,19 +141,19 @@ paths:
         "400":
           description: "Invalid Voucher"
 
-  /voucher/v1/voteOnVoucher:
+  /voucher/v1/update:
     post:
       tags:
       - "voucher"
       summary: "vota em um voucher."
-      description: "descrição TODO: como usar esse endpoint"
-      operationId: "voteOnVoucher"
+      description: "Atualiza um voucher, por exemplo para votar(dar nota) em um voucher"
+      operationId: "updateVoucher"
       produces:
       - "application/json"
       parameters:
       - in: "body"
         name: "body"
-        description: "objeto body dados para votar no voucher (TODO: confirmar isso)"
+        description: "objeto body dados para atualizar um voucher"
         required: true
         schema:
           $ref: '#/definitions/Voucher.update'
@@ -164,6 +164,103 @@ paths:
             $ref: '#/definitions/Voucher.response'
         "400":
           description: "Invalid Voucher"
+
+  /benefit/v1/find/by-type:
+    post:
+      tags:
+      - "benefit"
+      summary: "busca todos os vouchers."
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "findBenefitsByType"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a busca"
+        required: true
+        schema:
+          $ref: '#/definitions/Benefit.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Benefit.response'
+        "400":
+          description: "Invalid Voucher"
+
+  /benefit/v1/find/by-near:
+    post:
+      tags:
+      - "benefit"
+      summary: "busca todos os vouchers."
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "findBenefitsByNear"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a busca"
+        required: true
+        schema:
+          $ref: '#/definitions/Benefit.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Benefit.response'
+        "400":
+          description: "Invalid Voucher"
+
+  /benefit/v1/find/by-term:
+    post:
+      tags:
+      - "benefit"
+      summary: "busca vouchers por term."
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "findBenefitsByTerm"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a busca"
+        required: true
+        schema:
+          $ref: '#/definitions/Benefit.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Benefit.response'
+        "400":
+          description: "Invalid Voucher"
+
+  /benefit/v1/find/by-id:
+    post:
+      tags:
+      - "benefit"
+      summary: "busca vouchers por ID"
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "findBenefitsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a busca"
+        required: true
+        schema:
+          $ref: '#/definitions/Benefit.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Benefit.response'
+        "400":
+          description: "Invalid Voucher"
+
 
 securityDefinitions:
   petstore_auth:
@@ -313,6 +410,223 @@ definitions:
         type: "string"
         format: "date-time"
         
+        
+  Benefit.find:
+    type: "object"
+    properties:
+      status: 
+        type: "boolean"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+        description: "ID do beneficio a ser buscado"
+      businessId:
+        type: "string"
+      type:
+        type: "string"
+      flagPromotion: 
+        type: "boolean"
+      flagSpotlight: 
+        type: "boolean"
+      flagHidden: 
+        type: "boolean"
+      title:
+        type: "string"
+      slug:
+        type: "string"
+      description:
+        type: "string"
+      resume:
+        type: "string"
+      videoUrl:
+        type: "string"
+      discountType:
+        type: "string"
+      discount:
+        type: "string"
+      eventDescription:
+        type: "string"
+      siteUrl:
+        type: "string"
+      tinySiteUrl:
+        type: "string"
+      footerNote:
+        type: "string"
+      shelfLifeStart:
+        type: "string"
+      shelfLifeEnd:
+        type: "string"
+      redemptionType:
+        type: "string"
+      voucherCode:
+        type: "string"
+      preGeneratedCode:
+        type: "string"
+      voucherAmount:
+        type: "string"
+      limitVoucherByUser:
+        type: "string"
+      voucherUserLimit:
+        type: "string"
+      voucherShelfLife:
+        type: "string"
+      benefitImage:
+        type: "string"
+      voucherPeriodLimit:
+        type: "string"
+      events:
+        type: "string"
+      vouchers:
+        type: "string"
+      branches:
+        type: "array"
+        items: {
+          type: "object"
+        }
+      categories:
+        type: "array"
+        items: {
+          type: "string"
+        }
+      
+
+  Benefit.response:
+    type: "object"
+    required: 
+    - _id
+    - businessId
+    - type
+    - flagPromotion
+    - flagSpotlight
+    - flagHidden
+    - status
+    - title
+    - slug
+    - description
+    - resume
+    - videoUrl
+    - discountType
+    - discount
+    - shelfLifeStart
+    - shelfLifeEnd
+    - redemptionType
+    properties:
+      status: 
+        type: "boolean"
+        description: "O status do beneficio (?porque boleano?)"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+        description: "ID do beneficio a ser buscado"
+      businessId:
+        type: "string"
+        description: "ID do parceiro que oferece o beneficio"
+      type:
+        type: "string"
+        description: "O tipo de benefício"
+      flagPromotion: 
+        type: "boolean"
+        description: "Se este benefício está marcado como em promoção"
+      flagSpotlight: 
+        type: "boolean"
+        description: "Se este benefício está marcado para aparecer em destaque"
+      flagHidden: 
+        type: "boolean"
+        description: "Se este benefício está invisível (ou seria deletado soft?)"
+      title:
+        type: "string"
+        description: "O título do benefício"
+      slug:
+        type: "string"
+        description: "O título do benefício que vira link: beneficio/o-que-fazer-na-cama "
+      description:
+        type: "string"
+        description: "A descrição do benefício"
+      resume:
+        type: "string"
+        description: "RESUME?"
+      videoUrl:
+        type: "string"
+        description: "A URL do video do benefício"
+      discountType:
+        type: "string"
+        description: "O tipo de desconto do benefício"
+      discount:
+        type: "string"
+        description: "O valor do desconto do benefício"
+      eventDescription:
+        type: "string"
+        description: "eventDescription ??? "
+      siteUrl:
+        type: "string"
+        description: "A URL do parceiro reference ao benefício??? "
+      tinySiteUrl:
+        type: "string"
+        description: "A URL ???"
+      footerNote:
+        type: "string"
+        description: "Nota de rodapé ???"
+      shelfLifeStart:
+        type: "string"
+        description: "Data de início de vizualização/disponibilização do beneficio???"
+      shelfLifeEnd:
+        type: "string"
+        description: "Data de fim de vizualização/disponibilização do beneficio???"
+      redemptionType:
+        type: "string"
+        description: "O tipo de resgate do beneficio???"
+      voucherCode:
+        type: "string"
+        description: "O código do voucher a ser gerado desse beneficio"
+      preGeneratedCode:
+        type: "string"
+        description: "preGeneratedCode ???"
+      voucherAmount:
+        type: "string"
+        description: "Quantos vouchers vão poder ser gerados para esse benefício"
+      limitVoucherByUser:
+        type: "string"
+        description: "Identifica se existe limite de vouchers gerados por usuário para esse benefício"
+      voucherUserLimit:
+        type: "string"
+        description: "Quantidade de vouchers que podem ser gerados por usuário para esse benefício"
+      voucherShelfLife:
+        type: "string"
+        description: "Qual diferença entre essa propriedade e: shelfLifeStart, shelfLifeEnd"
+      benefitImage:
+        type: "string"
+        description: "Imagem (seria URL?) desse beneficio"
+      voucherPeriodLimit:
+        type: "string"
+        description: "voucherPeriodLimit ???"
+      events:
+        type: "string"
+        description: "events ???"
+      vouchers:
+        type: "string"
+        description: "Lista de vouchers que foram gerados para este benefício"
+      branches:
+        description: "branches?? TODO: descriçao e modelagem do objeto deta propriedade"
+        type: "array"
+        items: {
+          type: "object"
+        }
+      categories:
+        description: "As categorias deste benefício"
+        type: "array"
+        items: {
+          type: "string"
+        }
 
 externalDocs:
   description: "Documentação auxiliar (Google docs)"
