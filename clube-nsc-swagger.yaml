@@ -44,7 +44,6 @@ paths:
             $ref: '#/definitions/Voucher.response'
         "400":
           description: "Invalid Voucher"
-
   /voucher/v1/find/by-status:
     post:
       tags:
@@ -68,7 +67,6 @@ paths:
             $ref: '#/definitions/Voucher.response'
         "400":
           description: "Invalid Voucher"
-          
   /voucher/v1/find/one:
     post:
       tags:
@@ -92,7 +90,6 @@ paths:
             $ref: '#/definitions/Voucher.response'
         "400":
           description: "Invalid Voucher"
-          
   /voucher/v1/delete:
     post:
       tags:
@@ -116,7 +113,6 @@ paths:
             $ref: '#/definitions/Voucher.find'
         "400":
           description: "Invalid Voucher"
-
   /voucher/v1/generateVoucher:
     post:
       tags:
@@ -140,7 +136,6 @@ paths:
             $ref: '#/definitions/Voucher.response'
         "400":
           description: "Invalid Voucher"
-
   /voucher/v1/update:
     post:
       tags:
@@ -188,7 +183,6 @@ paths:
             $ref: '#/definitions/Benefit.response'
         "400":
           description: "Invalid Voucher"
-
   /benefit/v1/find/by-near:
     post:
       tags:
@@ -212,7 +206,6 @@ paths:
             $ref: '#/definitions/Benefit.response'
         "400":
           description: "Invalid Voucher"
-
   /benefit/v1/find/by-term:
     post:
       tags:
@@ -236,7 +229,6 @@ paths:
             $ref: '#/definitions/Benefit.response'
         "400":
           description: "Invalid Voucher"
-
   /benefit/v1/find/by-id:
     post:
       tags:
@@ -261,6 +253,53 @@ paths:
         "400":
           description: "Invalid Voucher"
 
+  /category/v1/find/getAll:
+    post:
+      tags:
+      - "category"
+      summary: "busca por todas as categorias dos beneficios"
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "getAllCategories"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a busca"
+        required: true
+        schema:
+          $ref: '#/definitions/Benefit.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Benefit.response'
+        "400":
+          description: "Invalid Voucher"
+          
+  /redemption/v1/getList:
+    post:
+      tags:
+      - "redemption"
+      summary: "Busca a lista de vouchers que foram resgatados? (redeem?)"
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "getRedemptionList"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a consulta"
+        required: true
+        schema:
+          $ref: '#/definitions/Redemption.find'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Redemption.response'
+        "400":
+          description: "Invalid Voucher"
 
 securityDefinitions:
   petstore_auth:
@@ -374,7 +413,6 @@ definitions:
         type: "string"
         required: 
          - _id
-  
   Voucher.response:
     type: "object"
     properties:
@@ -409,7 +447,6 @@ definitions:
       updatedAt:
         type: "string"
         format: "date-time"
-        
         
   Benefit.find:
     type: "object"
@@ -480,21 +517,50 @@ definitions:
       voucherPeriodLimit:
         type: "string"
       events:
-        type: "string"
+        type: "array"
+        items: 
+          type: "string"
+          format: "date-time"
       vouchers:
         type: "string"
       branches:
         type: "array"
-        items: {
+        items: 
           type: "object"
-        }
+          properties:
+            branch:
+              type: "string"
+            type:
+              type: "string"
+            location:
+              type: "object"
+              properties:
+                type:
+                  type: "string"
+                coordinates: 
+                  type: "array"
+                  items:
+                    type: "number"
       categories:
         type: "array"
-        items: {
-          type: "string"
-        }
-      
-
+        items: 
+          $ref: '#/definitions/Category.response'
+  Benefit.branch:
+    type: "object"
+    properties:
+      branch:
+        type: "string"
+      type:
+        type: "string"
+      location:
+        type: "object"
+        properties:
+          type:
+            type: "string"
+          coordinates: 
+            type: "array"
+            items:
+              type: "number"
   Benefit.response:
     type: "object"
     required: 
@@ -527,7 +593,7 @@ definitions:
         format: "date-time"
       _id:
         type: "string"
-        description: "ID do beneficio a ser buscado"
+        description: "ID do beneficio"
       businessId:
         type: "string"
         description: "ID do parceiro que oferece o beneficio"
@@ -627,7 +693,165 @@ definitions:
         items: {
           type: "string"
         }
-
+        
+  Category.find:
+    type: "object"
+    properties:
+      status: 
+        type: "boolean"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+      name:
+        type: "string"
+      showMenu:
+        type: "boolean"
+      showApp:
+        type: "boolean"
+      weight:
+        type: "integer"
+      weightByDate:
+        type: "boolean"
+      parentId:
+        type: "string"
+      iconAppUrl:
+        type: "string"
+      backgroundAppUrl:
+        type: "string"
+      iconWebsiteUrl:
+        type: "string"
+  Category.response:
+    type: "object"
+    required: 
+    - name
+    - showMenu
+    - showApp
+    - status
+    - weight
+    - weightByDate
+    properties:
+      status: 
+        type: "boolean"
+        description: "O status dessa categoria (???)"
+      createdAt:
+        type: "string"
+        format: "date-time"
+      updatedAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+        description: "ID da categoria"
+      name:
+        type: "string"
+        description: "Nome da categoria"
+      showMenu:
+        type: "boolean"
+        description: "Marca essa categoria para ser mostrada no menu (???)"
+      showApp:
+        type: "boolean"
+        description: "???"
+      weight:
+        type: "integer"
+        description: "O peso dessa categoria em relação...(???)"
+      weightByDate:
+        type: "boolean"
+        description: "Peso por data???"
+      parentId:
+        type: "string"
+        description: "ID da categoria acima (???)"
+      iconAppUrl:
+        type: "string"
+        description: "A URL do ícone da categoria a ser mostrada no app(???)"
+      backgroundAppUrl:
+        type: "string"
+        description: "A URL do background (???)"
+      iconWebsiteUrl:
+        type: "string"
+        description: "A URL do ícone da categoria a ser mostrada no site (???)"
+  
+  
+  Redemption.find:
+    type: "object"
+    properties:
+      createdAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+      userId:
+        type: "string"
+      benefitId:
+        type: "boolean"
+      branchId:
+        type: "boolean"
+      voucherId:
+        type: "integer"
+      discoutValue:
+        type: "boolean"
+      
+  Redemption.response:
+    type: "object"
+    required: 
+    - userId
+    - benefitId
+    - branchId
+    - voucherId
+    - discoutValue
+    properties:
+      createdAt:
+        type: "string"
+        format: "date-time"
+      _id:
+        type: "string"
+      userId:
+        type: "string"
+      benefitId:
+        type: "boolean"
+      branchId:
+        type: "boolean"
+      voucherId:
+        type: "integer"
+      discoutValue:
+        type: "boolean"
+      
+        
 externalDocs:
   description: "Documentação auxiliar (Google docs)"
   url: "https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE"
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
