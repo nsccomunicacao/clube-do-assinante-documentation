@@ -328,8 +328,9 @@ paths:
   /document/v1/upload/avatar:
     post:
       tags:
-      - "document-upload-avatar"
-      summary: "Envia uma imagem para o avatar do usuário"
+      - "upload"
+      - "avatar"
+      summary: "Envia uma imagem para ser usada como avatar do usuário"
       description: "descrição TODO: como usar esse endpoint"
       operationId: "documentUploadAvatar"
       produces:
@@ -348,6 +349,31 @@ paths:
             $ref: '#/definitions/Document.upload.response'
         "400":
           description: "Invalid request"
+  
+  /rating/v1/create:
+    post:
+      tags:
+      - "rating"
+      summary: "Salva avaliação do app pelo usuário"
+      description: "descrição TODO: como usar esse endpoint"
+      operationId: "rateApp"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "objeto body com options para a consulta"
+        required: true
+        schema:
+          $ref: '#/definitions/Document.upload.response'
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            $ref: '#/definitions/Document.upload.response'
+        "400":
+          description: "Invalid request"
+
 
 securityDefinitions:
   petstore_auth:
@@ -823,7 +849,6 @@ definitions:
         type: "string"
         description: "A URL do ícone da categoria a ser mostrada no site (???)"
   
-  
   Redemption.find:
     type: "object"
     properties:
@@ -866,7 +891,7 @@ definitions:
         type: "integer"
       discoutValue:
         type: "boolean"
-      
+
   UserVIP.find:
     type: "object"
     properties:
@@ -888,7 +913,6 @@ definitions:
         type: "string"
       updatedAt_id: 
         type: "string"
-        
   UserVIP.response:
     type: "object"
     required: 
@@ -915,7 +939,6 @@ definitions:
         type: "string"
       updatedAt_id: 
         type: "string"
-        
   
   Document.upload.avatar:
     type: "object"
@@ -930,22 +953,51 @@ definitions:
           data: 
             type: "string"
             format: "byte"
-      
   Document.upload.response:
     description: "revisar a resposta"
     type: "object"
     properties:
-      file:
+      result:
         type: "object"
         properties:
-          fileName:
+          resultCode:
             type: "string"
-          contentType: 
+          image: 
             type: "string"
-          data: 
+          headers: 
             type: "string"
-            format: "byte"
-   
+  
+  Rating.create:
+    type: "object"
+    properties:
+      cognitoId: 
+        type: "string"
+      rate: 
+        type: "string"
+      publishedDate: 
+        type: "string"
+      version: 
+        type: "string"
+      createdAt_id: 
+        type: "string"
+      updatedAt_id: 
+        type: "string"
+  Rating.response:
+    type: "object"
+    properties:
+      cognitoId: 
+        type: "string"
+      rate: 
+        type: "string"
+      publishedDate: 
+        type: "string"
+      version: 
+        type: "string"
+      createdAt_id: 
+        type: "string"
+      updatedAt_id: 
+        type: "string"
+  
 externalDocs:
   description: "Documentação auxiliar (Google docs)"
   url: "https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE"
