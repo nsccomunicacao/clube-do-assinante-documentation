@@ -405,20 +405,21 @@ definitions:
         description: "ID do parceiro que oferece o beneficio"
       branchId:
         type: "string"
-        description: "ID da branch? (definir)"
+        description: "ID da unidade de uso do benefício"
       qrcode:
         type: "string"
-        description: "QR code do voucher? (tem descrição melhor?)"
+        description: "Código do voucher"
       shopValue:
         type: "number"
         format: "float"
-        description: "perguntar"
+        description: "depreciada"
+        
       rate:
         type: "integer"
-        description: "perguntar -> gte: 1,lte: 5,"
+        description: "Avaliação do usuário"
       status:
         type: "string"
-        description: "Status do voucher (perguntar se é enum etc) (requred?)"
+        description: "Um de: \ntovalidate: voucher criado, mas não usado, \npending: voucher validado por um parceiro, mas ainda não avaliado pelo cliente, \nused: voucher validado e avaliado pelo cliente"
       createdAt:
         type: "string"
         format: "date-time"
@@ -439,20 +440,20 @@ definitions:
         description: "ID do parceiro que oferece o beneficio"
       branchId:
         type: "string"
-        description: "ID da branch? (definir)"
+        description: "ID da unidade de uso do benefício"
       qrcode:
         type: "string"
-        description: "QR code do voucher? (tem descrição melhor?)"
+        description: "Código do voucher"
       shopValue:
         type: "number"
         format: "float"
-        description: "perguntar"
+        description: "depreciada"
       rate:
         type: "integer"
-        description: "perguntar -> gte: 1,lte: 5,"
+        description: "Avaliação do usuário"
       status:
         type: "string"
-        description: "Status do voucher (perguntar se é enum etc) (requred?)"
+        description: "Um de: \ntovalidate: voucher criado, mas não usado, \npending: voucher validado por um parceiro, mas ainda não avaliado pelo cliente, \nused: voucher validado e avaliado pelo cliente"
       createdAt:
         type: "string"
         format: "date-time"
@@ -469,17 +470,17 @@ definitions:
         description: "ID do parceiro que oferece o beneficio"
       qrcode:
         type: "string"
-        description: "QR code do voucher? (tem descrição melhor?)"
+        description: "Código do voucher"
       shopValue:
         type: "number"
         format: "float"
-        description: "perguntar"
+        description: "depreciada"
       rate:
         type: "integer"
-        description: "perguntar -> gte: 1,lte: 5,"
+        description: "Avaliação do usuário"
       status:
         type: "string"
-        description: "Status do voucher (perguntar se é enum etc) (requred?)"
+        description: "Um de: \ntovalidate: voucher criado, mas não usado, \npending: voucher validado por um parceiro, mas ainda não avaliado pelo cliente, \nused: voucher validado e avaliado pelo cliente"
   Voucher.delete:
     type: "object"
     properties:
@@ -501,20 +502,20 @@ definitions:
         description: "ID do parceiro que oferece o beneficio"
       branchId:
         type: "string"
-        description: "ID da branch? (definir)"
+        description: "ID da unidade de uso do benefício"
       qrcode:
         type: "string"
-        description: "QR code do voucher? (tem descrição melhor?)"
+        description: "Código do voucher"
       shopValue:
         type: "number"
         format: "float"
-        description: "perguntar"
+        description: "depreciada"
       rate:
         type: "integer"
-        description: "perguntar -> gte: 1,lte: 5,"
+        description: "Avaliação do usuário"
       status:
         type: "string"
-        description: "Status do voucher (perguntar se é enum etc) (requred?)"
+        description: "Um de: \ntovalidate: voucher criado, mas não usado, \npending: voucher validado por um parceiro, mas ainda não avaliado pelo cliente, \nused: voucher validado e avaliado pelo cliente"
       createdAt:
         type: "string"
         format: "date-time"
@@ -637,6 +638,7 @@ definitions:
               type: "number"
   Benefit.response:
     type: "object"
+    
     required: 
     - _id
     - businessId
@@ -960,12 +962,15 @@ definitions:
       result:
         type: "object"
         properties:
-          resultCode:
+          code:
             type: "string"
-          image: 
+          name:
             type: "string"
-          headers: 
-            type: "string"
+          result:
+            type: "object"
+            properties:
+              image:
+                type: "string"
   
   Rating.create:
     type: "object"
