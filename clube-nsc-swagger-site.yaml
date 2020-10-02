@@ -1,0 +1,924 @@
+openapi: 3.0.0
+info:
+  description: >-
+    Documentação de API do Clube NSC
+    [link](https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE)
+    .`keyword` .
+  version: 1.0.0-oas3
+  title: (Site) Clube NSC API Docs
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: kleyson.sousa@somosnsc.com.br
+  license:
+    name: licença de uso Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: voucher
+    description: Vouchers do clube
+    externalDocs:
+      description: Documentação auxiliar(wip)
+      url: >-
+        https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE
+paths:
+  /content/v1/find:
+    post:
+      tags:
+        - voucher
+      summary: ''
+      description: 'busca todos os vouchers'
+      operationId: findVouchers
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Content.find'
+  /benefit/v1/find/by-type:
+    post:
+      tags:
+        - benefit
+      summary: busca todos os vouchers.
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: findBenefitsByType
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /benefit/v1/find/by-near:
+    post:
+      tags:
+        - benefit
+      summary: Busca vouchers por proximidade, baseado na localização.
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: findBenefitsByNear
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /benefit/v1/find/by-term:
+    post:
+      tags:
+        - benefit
+      summary: Busca vouchers por palavras chaves.
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: findBenefitsByTerm
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /benefit/v1/find/by-id:
+    post:
+      tags:
+        - benefit
+      summary: busca vouchers por ID
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: findBenefitsById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /category/v1/find/getAll:
+    post:
+      tags:
+        - category
+      summary: busca por todas as categorias
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /redemption/v1/getList:
+    post:
+      tags:
+        - redemption
+      summary: Busca a lista de vouchers que foram resgatados
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: getRedemptionList
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Redemption.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Redemption.find'
+        description: objeto body com options para a consulta
+        required: true
+  /user-vip/v1/find/one:
+    post:
+      tags:
+        - user-vip
+      summary: Busca por um usuário VIP
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: userVipFindOne
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserVIP.response'
+        '400':
+          description: Invalid Voucher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserVIP.find'
+        description: objeto body com options para a consulta
+        required: true
+  /rating/v1/create:
+    post:
+      tags:
+        - rating
+      summary: Salva avaliação do app pelo usuário
+      description: 'descrição TODO: como usar esse endpoint'
+      operationId: rateApp
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Document.upload.response'
+        '400':
+          description: Invalid request
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Document.upload.response'
+        description: objeto body com options para a consulta
+        required: true
+externalDocs:
+  description: Documentação auxiliar (Google docs)
+  url: >-
+    https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE
+servers:
+  - url: 'https://stg-api.clubensc.com.br'
+    description: Staging server
+  - url: 'https://api.clubensc.com.br'
+    description: Production server
+components:
+  requestBodies:
+    Content.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Content.find'
+      description: objeto body com options para a busca
+      required: true
+    Benefit.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find'
+      description: objeto body com options para a busca
+      required: true
+  securitySchemes:
+    site_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: 'https://api.clubensc.com.br'
+          scopes:
+            'write:schema_name': todo
+            'read:schema_name': todo
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
+  schemas:
+    Content.find:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID do voucher'
+        userId:
+          type: string
+          description: 'ID do usuário que possui esse voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: 'depreciada'
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+
+            tovalidate: voucher criado, mas não usado, 
+
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+
+            used: voucher validado e avaliado pelo cliente
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+    Content.response:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'ID do usuário que possui o voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: depreciada
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+
+            tovalidate: voucher criado, mas não usado, 
+
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+
+            used: voucher validado e avaliado pelo cliente
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+    Benefit.find:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: 'Status do benefício (ativo ou não)'
+        createdAt:
+          type: string
+          description: 'Data de criação do registro'
+        updatedAt:
+          type: string
+          description: 'Última data de modificação do registro'
+        _id:
+          type: string
+          description: 'ID do beneficio'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        type:
+          type: string
+          description: 'O tipo de benefício: event ou perennial'
+        flagPromotion:
+          type: boolean
+          description: 'Sem função no sistema atual'
+        flagSpotlight:
+          type: boolean
+          description: 'Se este benefício está marcado para aparecer na listagem de destaque'
+        flagHidden:
+          type: boolean
+          description: 'Se este benefício está visível'
+        title:
+          type: string
+          description: 'O título do benefício'
+        slug:
+          type: string
+          description: 'O título do benefício que vira link: beneficio/o-que-fazer-na-cama '
+        description:
+          type: string
+          description: 'A descrição do benefício'
+        resume:
+          type: string
+          description: 'Resumo do benefício'
+        videoUrl:
+          type: string
+          description: 'Não está sendo usada. A URL do video do benefício'
+        discountType:
+          type: string
+          description: 'O tipo de desconto do benefício: percent ou plain'
+        discount:
+          type: string
+          description: 'O valor do desconto do benefício'
+        eventDescription:
+          type: string
+          description: 'Descrição do evento'
+        siteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        tinySiteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        footerNote:
+          type: string
+          description: 'Nota de rodapé'
+        shelfLifeStart:
+          type: string
+          description: 'Data de início da disponibilidade do benefício' 
+        shelfLifeEnd:
+          type: string
+          description: 'Data do fim da disponibilidade do benefício' 
+        redemptionType:
+          type: string
+          description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
+        voucherCode:
+          type: string
+          description: 'Código usado na geração do voucher quando redemptionType é promocode'
+        preGeneratedCode:
+          type: string
+          description: 'Flag que define se os códigos do benefício são pré-gerados (a partir de um arquivo .csv)'
+        voucherAmount:
+          type: string
+          description: 'Quantos vouchers vão poder ser gerados para esse benefício'
+        limitVoucherByUser:
+          type: string
+          description: '>-
+            Identifica se existe limite de vouchers gerados por usuário para
+            esse benefício'
+        voucherUserLimit:
+          type: string
+          description: >-
+            Quantidade de vouchers que podem ser gerados por usuário para esse
+            benefício
+        voucherShelfLife:
+          type: string
+          description: >-
+            Quantidade de dias até que o voucher expire
+        benefitImage:
+          type: string
+          description: 'Identificador da imagem desse beneficio'
+        voucherPeriodLimit:
+          type: string
+          description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
+        events:
+          type: string
+          description: 'Data dos eventos'
+        branches:
+          description: 'Unidades relacionadas à esse benefício'
+          type: array
+          items:
+            type: object
+        categories:
+          description: 'Categorias em que esse benefício pertence'
+          type: array
+          items:
+            type: string
+    Benefit.response:
+      type: object
+      required:
+        - _id
+        - businessId
+        - type
+        - flagPromotion
+        - flagSpotlight
+        - flagHidden
+        - status
+        - title
+        - slug
+        - description
+        - resume
+        - videoUrl
+        - discountType
+        - discount
+        - shelfLifeStart
+        - shelfLifeEnd
+        - redemptionType
+      properties:
+        status:
+          type: boolean
+          description: 'Status do benefício (ativo ou não)'
+        createdAt:
+          type: string
+          description: 'Data de criação do registro'
+        updatedAt:
+          type: string
+          description: 'Última data de modificação do registro'
+        _id:
+          type: string
+          description: 'ID do beneficio'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        type:
+          type: string
+          description: 'O tipo de benefício: event ou perennial'
+        flagPromotion:
+          type: boolean
+          description: 'Sem função no sistema atual'
+        flagSpotlight:
+          type: boolean
+          description: 'Se este benefício está marcado para aparecer na listagem de destaque'
+        flagHidden:
+          type: boolean
+          description: 'Se este benefício está visível'
+        title:
+          type: string
+          description: 'O título do benefício'
+        slug:
+          type: string
+          description: 'O título do benefício que vira link: beneficio/o-que-fazer-na-cama '
+        description:
+          type: string
+          description: 'A descrição do benefício'
+        resume:
+          type: string
+          description: 'Resumo do benefício'
+        videoUrl:
+          type: string
+          description: 'Não está sendo usada. A URL do video do benefício'
+        discountType:
+          type: string
+          description: 'O tipo de desconto do benefício: percent ou plain'
+        discount:
+          type: string
+          description: 'O valor do desconto do benefício'
+        eventDescription:
+          type: string
+          description: 'Descrição do evento'
+        siteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        tinySiteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        footerNote:
+          type: string
+          description: 'Nota de rodapé'
+        shelfLifeStart:
+          type: string
+          description: 'Data de início da disponibilidade do benefício' 
+        shelfLifeEnd:
+          type: string
+          description: 'Data do fim da disponibilidade do benefício' 
+        redemptionType:
+          type: string
+          description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
+        voucherCode:
+          type: string
+          description: 'Código usado na geração do voucher quando redemptionType é promocode'
+        preGeneratedCode:
+          type: string
+          description: 'Flag que define se os códigos do benefício são pré-gerados (a partir de um arquivo .csv)'
+        voucherAmount:
+          type: string
+          description: 'Quantos vouchers vão poder ser gerados para esse benefício'
+        limitVoucherByUser:
+          type: string
+          description: '>-
+            Identifica se existe limite de vouchers gerados por usuário para
+            esse benefício'
+        voucherUserLimit:
+          type: string
+          description: >-
+            Quantidade de vouchers que podem ser gerados por usuário para esse
+            benefício
+        voucherShelfLife:
+          type: string
+          description: >-
+            Quantidade de dias até que o voucher expire
+        benefitImage:
+          type: string
+          description: 'Identificador da imagem desse beneficio'
+        voucherPeriodLimit:
+          type: string
+          description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
+        events:
+          type: string
+          description: 'Data dos eventos'
+        branches:
+          description: 'Unidades relacionadas à esse benefício'
+          type: array
+          items:
+            type: object
+        categories:
+          description: 'Categorias em que esse benefício pertence'
+          type: array
+          items:
+            type: string
+    Category.find:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: 'Categoria ativa ou não'
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+        _id:
+          type: string
+        name:
+          type: string
+        showMenu:
+          type: boolean
+          description: 'Se a categoria aparece no menu do website'
+        showApp:
+          type: boolean
+          description: 'Se a categoria aparece no menu do app'
+        weight:
+          type: integer
+          description: 'Ordem que as categorias são organizadas, menor aparece antes'
+        weightByDate:
+          type: boolean
+          description: 'Depreciada'
+        parentId:
+          type: string
+          description: 'ID da categoria pai, se existir'
+        iconAppUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no app'
+        backgroundAppUrl:
+          type: string
+          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
+        iconWebsiteUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no website'
+    Category.response:
+      type: object
+      required:
+        - name
+        - showMenu
+        - showApp
+        - status
+        - weight
+        - weightByDate
+      properties:
+        status:
+          type: boolean
+          description: 'Categoria ativa ou não'
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+        _id:
+          type: string
+        name:
+          type: string
+        showMenu:
+          type: boolean
+          description: 'Se a categoria aparece no menu do website'
+        showApp:
+          type: boolean
+          description: 'Se a categoria aparece no menu do app'
+        weight:
+          type: integer
+          description: 'Ordem que as categorias são organizadas, menor aparece antes'
+        weightByDate:
+          type: boolean
+          description: 'Depreciada'
+        parentId:
+          type: string
+          description: 'ID da categoria pai, se existir'
+        iconAppUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no app'
+        backgroundAppUrl:
+          type: string
+          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
+        iconWebsiteUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no website'
+    Redemption.find:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        _id:
+          type: string
+        userId:
+          type: string
+          description: 'ID do usuário que utilizou o voucher'
+        benefitId:
+          type: boolean
+          description: 'ID do benefício que foi utilizado'
+        branchId:
+          type: boolean
+          description: 'ID da unidade onde o voucher foi utilizado'
+        branch:
+          type: object
+          description: 'Informações da unidade onde o voucher foi utilizado'
+          properties:
+            district:
+              type: string
+              description: 'Bairro'
+            zipcode:
+              type: string
+              description: 'CEP'
+            city:
+              type: string
+              description: 'Código da cidade'
+            state:
+              type: string
+              description: 'Código do estado'
+        consumer:
+          type: object
+          description: 'Informações do usuário'
+          properties:
+            _id:
+              type: string
+              description: 'ID do usuário'
+            cep:
+              type: string
+              description: 'CEP do usuário'
+            neighborhood:
+              type: string
+              description: 'Bairro do usuário'
+            given_name:
+              type: string
+              description: 'Nome do usuário'
+            last_name:
+              type: string
+              description: 'Sobrenome do usuário'
+            document:
+              type: string
+              description: 'Número do CPF do usuário'
+            state:
+              type: string
+              description: 'Estado do usuário'
+            city:
+              type: string
+              description: 'Ciadade do usuário'
+            birthDate:
+              type: string
+              description: 'Data de nascimento do usuário'
+        voucherId:
+          type: integer
+          description: 'ID do voucher que foi utilizado'
+        discoutValue:
+          type: boolean
+          description: 'Depreciada'
+        firstSystemUse:
+          type: boolean
+          description: 'Primeira vez que o usuário utiliza um voucher no sistema'
+        firstBranchUse:
+          type: boolean
+          description: 'Primeira vez que o usuário utiliza um voucher nessa unidade'
+    Redemption.response:
+      type: object
+      properties:
+        createdAt:
+          type: string
+          format: date-time
+        _id:
+          type: string
+        userId:
+          type: string
+          description: 'ID do usuário que utilizou o voucher'
+        benefitId:
+          type: boolean
+          description: 'ID do benefício que foi utilizado'
+        branchId:
+          type: boolean
+          description: 'ID da unidade onde o voucher foi utilizado'
+        branch:
+          type: object
+          description: 'Informações da unidade onde o voucher foi utilizado'
+          properties:
+            district:
+              type: string
+              description: 'Bairro'
+            zipcode:
+              type: string
+              description: 'CEP'
+            city:
+              type: string
+              description: 'Código da cidade'
+            state:
+              type: string
+              description: 'Código do estado'
+        consumer:
+          type: object
+          description: 'Informações do usuário'
+          properties:
+            _id:
+              type: string
+              description: 'ID do usuário'
+            cep:
+              type: string
+              description: 'CEP do usuário'
+            neighborhood:
+              type: string
+              description: 'Bairro do usuário'
+            given_name:
+              type: string
+              description: 'Nome do usuário'
+            last_name:
+              type: string
+              description: 'Sobrenome do usuário'
+            document:
+              type: string
+              description: 'Número do CPF do usuário'
+            state:
+              type: string
+              description: 'Estado do usuário'
+            city:
+              type: string
+              description: 'Ciadade do usuário'
+            birthDate:
+              type: string
+              description: 'Data de nascimento do usuário'
+        voucherId:
+          type: integer
+          description: 'ID do voucher que foi utilizado'
+        discoutValue:
+          type: boolean
+          description: 'Depreciada'
+        firstSystemUse:
+          type: boolean
+          description: 'Primeira vez que o usuário utiliza um voucher no sistema'
+        firstBranchUse:
+          type: boolean
+          description: 'Primeira vez que o usuário utiliza um voucher nessa unidade'
+    UserVIP.find:
+      type: object
+      properties:
+        _id:
+          type: string
+        cpf:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+        expiracy:
+          type: string
+          description: 'Data que o usuário não consegue mais utilizar o sistema. Se não possuir valor não expira'
+        perfil:
+          type: string
+          description: 'Tipo do perfil: FUNCIONARIO, VITALICIO ou ARBS'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    UserVIP.response:
+      type: object
+      required:
+        - _id
+        - cpf
+        - name
+        - email
+      properties:
+        _id:
+          type: string
+        cpf:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+        expiracy:
+          type: string
+          description: 'Data que o usuário não consegue mais utilizar o sistema. Se não possuir valor não expira'
+        perfil:
+          type: string
+          description: 'Tipo do perfil: FUNCIONARIO, VITALICIO ou ARBS'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Document.upload.avatar:
+      type: object
+      properties:
+        file:
+          type: object
+          properties:
+            fileName:
+              type: string
+            contentType:
+              type: string
+            data:
+              type: string
+              format: byte
+    Document.upload.response:
+      description: revisar a resposta
+      type: object
+      properties:
+        result:
+          type: object
+          properties:
+            code:
+              type: string
+            name:
+              type: string
+            result:
+              type: object
+              properties:
+                image:
+                  type: string
+    Rating.create:
+      type: object
+      properties:
+        cognitoId:
+          type: string
+        rate:
+          type: string
+          description: 'Nota de 1 à 5'
+        publishedDate:
+          type: string
+        version:
+          type: string
+          description: 'Versão do app que recebeu essa avaliação'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    Rating.response:
+      type: object
+      properties:
+        cognitoId:
+          type: string
+        rate:
+          type: string
+          description: 'Nota de 1 à 5'
+        publishedDate:
+          type: string
+        version:
+          type: string
+          description: 'Versão do app que recebeu essa avaliação'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
