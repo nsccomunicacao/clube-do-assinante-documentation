@@ -227,7 +227,7 @@ paths:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
           description: Invalid Operation
-      requestBody:
+      # requestBody:
   #         $ref: '#/components/requestBodies/Benefit.find'
   /redemption/v1/getList:
     post:
@@ -574,6 +574,7 @@ components:
             categories:
               type: array
               description: 'Filtrar por categoria'
+              items: {}
               example:
                 [
                   5ef1c58af25942a61a573c70,
@@ -588,10 +589,10 @@ components:
               description: 'Filtrar coordenadas'
               properties:
                 lng:
-                  type: double
+                  type: number
                   example: -122.406417
                 lat:
-                  type: double
+                  type: number
                   example: 37.785834
             minDistance:
               type: integer
