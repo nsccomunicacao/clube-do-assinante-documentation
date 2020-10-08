@@ -8,11 +8,11 @@ var options = {
   swaggerOptions: {
     urls: [
       {
-        url: 'https://raw.githubusercontent.com/nsccomunicacao/clube-do-assinante-documentation/master/clube-nsc-swagger-app.yaml?token=AEKWECVVR7OWXRYHTUIXCE27PXKOE',
+        url: 'https://raw.githubusercontent.com/nsccomunicacao/clube-do-assinante-documentation/master/clube-nsc-swagger-app.yaml',
         name: 'APP'
       },
       {
-        url: 'https://raw.githubusercontent.com/nsccomunicacao/clube-do-assinante-documentation/master/clube-nsc-swagger-site.yaml?token=AEKWECQHXJ74FBVA5B2INGC7PXKXQ',
+        url: 'https://raw.githubusercontent.com/nsccomunicacao/clube-do-assinante-documentation/master/clube-nsc-swagger-site.yaml',
         name: 'Site'
       }
     ]
