@@ -22,7 +22,9 @@ tags:
   - name: user-vip
     description: Verifica sócio beneficiado
   - name: rating
-    description: Avaliar app    
+    description: Avaliar app  
+  - name: document
+    description: Atualizar avatar do usuário     
 paths:
   /voucher/v1/find:
     post:
@@ -278,10 +280,9 @@ paths:
   /document/v1/upload/avatar:
     post:
       tags:
-        - upload
-        - avatar
-      summary: Envia uma imagem para ser usada como avatar do usuário
-      description: 'descrição TODO: como usar esse endpoint'
+        - document
+      summary: Carregar imagem de avatar
+      description: 'Envia uma imagem para ser usada como avatar do usuário'
       operationId: documentUploadAvatar
       responses:
         '200':
@@ -293,12 +294,7 @@ paths:
         '400':
           description: Invalid request
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Document.upload.avatar'
-        description: objeto body com options para a consulta
-        required: true
+        $ref: '#/components/requestBodies/Document.upload.avatar'
   /rating/v1/create:
     post:
       tags:
@@ -394,6 +390,13 @@ components:
             $ref: '#/components/schemas/Rating.create'
       description: Objeto body com opções avaliar o app
       required: true     
+    Document.upload.avatar:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Document.upload'
+      description: Objeto body com opções atualizar avatar do usuário
+      required: true
   schemas:
     Voucher.find:
       type: object
@@ -1290,6 +1293,13 @@ components:
               properties:
                 image:
                   type: string
+    Document.upload:
+      type: object
+      properties:
+        _parts:
+          type: array
+          items: {}
+          example: [["file", "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ..."], ["fileName", "XLSS0DA0YU8V7ZHMJTXZV"], ["contentType", "image/jpeg"], ["extension", "jpg"]]
     Rating.create:
       type: object
       properties:
