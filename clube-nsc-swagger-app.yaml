@@ -1,24 +1,30 @@
 openapi: 3.0.0
 info:
   description: >-
-    Documentação de API do Clube NSC
-    [link](https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE)
-    .`keyword` .
+    Mapeamento dos endpoints utilizados na aplicação mobile do Clube NSC.
   version: 1.0.0-oas3
-  title: (App) Clube NSC API Docs
+  title: APP - Clube NSC API Docs
   termsOfService: 'http://swagger.io/terms/'
   contact:
     email: kleyson.sousa@somosnsc.com.br
   license:
-    name: licença de uso Apache 2.0
+    name: Licença de uso Apache 2.0
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
   - name: voucher
-    description: Vouchers do clube
-    externalDocs:
-      description: Documentação auxiliar(wip)
-      url: >-
-        https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE
+    description: Consumo e utilização de vouchers
+  - name: benefit
+    description: Consumo de benefícios
+  - name: category
+    description: Consumo de categorias  
+  - name: redemption
+    description: Consumo de informações sobre vouchers resgatados  
+  - name: user-vip
+    description: Verifica sócio beneficiado
+  - name: rating
+    description: Avaliar app  
+  - name: document
+    description: Atualizar avatar do usuário     
 paths:
   /voucher/v1/find:
     post:
@@ -29,13 +35,13 @@ paths:
       operationId: findVouchers
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/find/by-status:
@@ -47,13 +53,13 @@ paths:
       operationId: findVoucherByStatus
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/find/one:
@@ -65,13 +71,13 @@ paths:
       operationId: findOneVoucher
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/delete:
@@ -83,13 +89,13 @@ paths:
       operationId: removeVoucher
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.find'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         content:
           application/json:
@@ -106,13 +112,13 @@ paths:
       operationId: generateVoucher
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         content:
           application/json:
@@ -129,13 +135,13 @@ paths:
       operationId: updateVoucher
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Voucher.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
         content:
           application/json:
@@ -147,149 +153,140 @@ paths:
     post:
       tags:
         - benefit
-      summary: busca todos os vouchers.
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar por Tipo
+      description: 'Buscar benefícios pelo tipo: evento ou perene'
       operationId: findBenefitsByType
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.find-by-type'
   /benefit/v1/find/by-near:
     post:
       tags:
         - benefit
-      summary: Busca vouchers por proximidade, baseado na localização.
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar por Proximidade
+      description: 'Busca baseada na localização'
       operationId: findBenefitsByNear
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.find-by-near'
   /benefit/v1/find/by-term:
     post:
       tags:
         - benefit
-      summary: Busca vouchers por palavras chaves.
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar por Termo
+      description: 'Busca baseada no termo informado'
       operationId: findBenefitsByTerm
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.find-by-term'
   /benefit/v1/find/by-id:
     post:
       tags:
         - benefit
-      summary: busca vouchers por ID
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar por ID
+      description: 'Busca benefício com base no ID informado'
       operationId: findBenefitsById
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.find-by-id'
   /category/v1/find/getAll:
     post:
       tags:
         - category
-      summary: busca por todas as categorias
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar Categorias
+      description: 'Busca todas as categorias cadastradas'
       operationId: getAllCategories
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+          $ref: '#/components/requestBodies/Category.find-getAll'
   /redemption/v1/getList:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - redemption
-      summary: Busca a lista de vouchers que foram resgatados
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Informações de Resgate
+      description: 'Busca estado de utilização de vouchers resgatados baseado no usuário'
       operationId: getRedemptionList
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/Redemption.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Redemption.find'
-        description: objeto body com options para a consulta
-        required: true
+          $ref: '#/components/requestBodies/Redemption.getList'
   /user-vip/v1/find/one:
     post:
       tags:
         - user-vip
-      summary: Busca por um usuário VIP
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Buscar Sócio Beneficiado
+      description: 'Buscar sócio beneficiado baseado no e-mail'
       operationId: userVipFindOne
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/UserVIP.response'
         '400':
-          description: Invalid Voucher
+          description: Invalid Operation
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UserVIP.find'
-        description: objeto body com options para a consulta
-        required: true
+        $ref: '#/components/requestBodies/UserVIP.find-user-vip'
   /document/v1/upload/avatar:
     post:
       tags:
-        - upload
-        - avatar
-      summary: Envia uma imagem para ser usada como avatar do usuário
-      description: 'descrição TODO: como usar esse endpoint'
+        - document
+      summary: Carregar imagem de avatar
+      description: 'Envia uma imagem para ser usada como avatar do usuário'
       operationId: documentUploadAvatar
       responses:
         '200':
-          description: successful operation
+          description: Successful Operation
           content:
             application/json:
               schema:
@@ -297,35 +294,23 @@ paths:
         '400':
           description: Invalid request
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Document.upload.avatar'
-        description: objeto body com options para a consulta
-        required: true
+        $ref: '#/components/requestBodies/Document.upload.avatar'
   /rating/v1/create:
     post:
       tags:
         - rating
-      summary: Salva avaliação do app pelo usuário
-      description: 'descrição TODO: como usar esse endpoint'
+      summary: Criar uma avaliação
+      description: 'Salva avaliação do usuário sobre o app'
       operationId: rateApp
       responses:
         '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Document.upload.response'
+          description: Successful Operation
         '400':
           description: Invalid request
+        '403':
+          description: Forbidden         
       requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Document.upload.response'
-        description: objeto body com options para a consulta
-        required: true
+        $ref: '#/components/requestBodies/Rating.create'
 externalDocs:
   description: Documentação auxiliar (Google docs)
   url: >-
@@ -336,6 +321,11 @@ servers:
   - url: 'https://api.clubensc.com.br'
     description: Production server
 components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
   requestBodies:
     Voucher.find:
       content:
@@ -344,26 +334,69 @@ components:
             $ref: '#/components/schemas/Voucher.find'
       description: objeto body com options para a busca
       required: true
-    Benefit.find:
+    Benefit.find-by-type:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Benefit.find'
-      description: objeto body com options para a busca
+            $ref: '#/components/schemas/Benefit.find-by-type'
+      description: Objeto body com opções para buscar pelo tipo `event`
       required: true
-  securitySchemes:
-    petstore_auth:
-      type: oauth2
-      flows:
-        implicit:
-          authorizationUrl: 'http://petstore.swagger.io/oauth/dialog'
-          scopes:
-            'write:pets': modify pets in your account
-            'read:pets': read your pets
-    api_key:
-      type: apiKey
-      name: api_key
-      in: header
+    Benefit.find-by-near:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-near'
+      description: Objeto body com opções para buscar benefícios próximos filtrando por categorias
+      required: true
+    Benefit.find-by-term:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-term'
+      description: Objeto body com opções para buscar benefícios por termo
+      required: true
+    Benefit.find-by-id:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-id'
+      description: Objeto body com opções para buscar benefícios por ID
+      required: true
+    Category.find-getAll:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category.find-getAll'
+      description: Objeto body com opções para buscar todas as categorias
+      required: true    
+    Redemption.getList:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Redemption.getList'
+      description: Objeto body com opções para buscar informações de vouchers resgatados por usuário
+      required: true     
+    UserVIP.find-user-vip:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserVIP.find-user-vip'
+      description: Objeto body com opções para buscar sócio beneficiado por e-mail
+      required: true 
+    Rating.create:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Rating.create'
+      description: Objeto body com opções avaliar o app
+      required: true     
+    Document.upload.avatar:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Document.upload'
+      description: Objeto body com opções atualizar avatar do usuário
+      required: true
   schemas:
     Voucher.find:
       type: object
@@ -397,12 +430,9 @@ components:
           type: string
           description: >-
             Um de: 
-
             tovalidate: voucher criado, mas não usado, 
-
             pending: voucher validado por um parceiro, mas ainda não avaliado
             pelo cliente, 
-
             used: voucher validado e avaliado pelo cliente
         createdAt:
           type: string
@@ -439,12 +469,9 @@ components:
           type: string
           description: >-
             Um de: 
-
             tovalidate: voucher criado, mas não usado, 
-
             pending: voucher validado por um parceiro, mas ainda não avaliado
             pelo cliente, 
-
             used: voucher validado e avaliado pelo cliente
     Voucher.update:
       type: object
@@ -478,12 +505,9 @@ components:
           type: string
           description: >-
             Um de: 
-
             tovalidate: voucher criado, mas não usado, 
-
             pending: voucher validado por um parceiro, mas ainda não avaliado
             pelo cliente, 
-
             used: voucher validado e avaliado pelo cliente
     Voucher.delete:
       type: object
@@ -521,12 +545,9 @@ components:
           type: string
           description: >-
             Um de: 
-
             tovalidate: voucher criado, mas não usado, 
-
             pending: voucher validado por um parceiro, mas ainda não avaliado
             pelo cliente, 
-
             used: voucher validado e avaliado pelo cliente
         createdAt:
           type: string
@@ -534,6 +555,109 @@ components:
         updatedAt:
           type: string
           description: date-time
+    Benefit.find-by-type:
+      type: object
+      properties:
+        filters:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            type:
+              type: string
+              example: event
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            orderby:
+              type: object
+              properties:
+                events.0:
+                  type: integer
+                  example: 1
+    Benefit.find-by-near:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            categories:
+              type: array
+              description: 'Filtrar por categoria'
+              items: {}
+              example:
+                [
+                  5ef1c58af25942a61a573c70,
+                  5ef1c58af25942a61a573c3e,
+                  5ef1c58af25942a61a573ca3,
+                  5ef1c58af25942a61a573c72,
+                  5ef1c58af25942a61a573c66,
+                  5ef1c58af25942a61a573c75,
+                ]
+            coordinates:
+              type: object
+              description: 'Filtrar coordenadas'
+              properties:
+                lng:
+                  type: number
+                  example: -122.406417
+                lat:
+                  type: number
+                  example: 37.785834
+            minDistance:
+              type: integer
+              example: 0
+        options:
+          type: object
+          properties:
+            limit:
+              type: integer
+              example: 7
+    Benefit.find-by-term:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            term:
+              type: string
+              description: 'Termo'
+              example: pet
+            partial:
+              type: boolean
+              example: true
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            orderby:
+              type: object
+              properties:
+                events.0:
+                  type: integer
+                  example: 1
+    Benefit.find-by-id:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: 'ID'
+              example: 5ef24632be414400082cbe05
     Benefit.find:
       type: object
       properties:
@@ -599,10 +723,10 @@ components:
           description: 'Nota de rodapé'
         shelfLifeStart:
           type: string
-          description: 'Data de início da disponibilidade do benefício' 
+          description: 'Data de início da disponibilidade do benefício'
         shelfLifeEnd:
           type: string
-          description: 'Data do fim da disponibilidade do benefício' 
+          description: 'Data do fim da disponibilidade do benefício'
         redemptionType:
           type: string
           description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
@@ -731,10 +855,10 @@ components:
           description: 'Nota de rodapé'
         shelfLifeStart:
           type: string
-          description: 'Data de início da disponibilidade do benefício' 
+          description: 'Data de início da disponibilidade do benefício'
         shelfLifeEnd:
           type: string
-          description: 'Data do fim da disponibilidade do benefício' 
+          description: 'Data do fim da disponibilidade do benefício'
         redemptionType:
           type: string
           description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
@@ -780,6 +904,15 @@ components:
           type: array
           items:
             type: string
+    Category.find-getAll:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            status:
+              type: boolean
+              example: true    
     Category.find:
       type: object
       properties:
@@ -867,6 +1000,57 @@ components:
         iconWebsiteUrl:
           type: string
           description: 'Identificador do imagem do ícone usado no website'
+    Redemption.getList:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            userId:
+              type: string
+              example: e410e6d4-35f0-4572-8400-9d8f426c08c1   
+        aggregates:
+          type: array
+          items:
+            type: object
+            properties:
+                  $project:
+                    type: object
+                    properties:
+                      month:
+                        type: object
+                        properties:
+                          $month:
+                            type: object
+                            properties:
+                              $toDate:
+                                type: string
+                                example: $createdAt
+                      year:
+                        type: object
+                        properties:
+                          $year:
+                            type: object
+                            properties:
+                              $toDate:
+                                type: string
+                                example: $createdAt     
+                  $match:
+                    type: object
+                    properties:
+                      month:
+                        type: object
+                        properties:
+                          $eq:
+                            type: integer
+                            example: 10
+                            
+                      year:
+                        type: object
+                        properties:
+                          $eq:
+                            type: integer
+                            example: 2020                                 
     Redemption.find:
       type: object
       properties:
@@ -1019,6 +1203,16 @@ components:
         firstBranchUse:
           type: boolean
           description: 'Primeira vez que o usuário utiliza um voucher nessa unidade'
+    UserVIP.find-user-vip:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            email:
+              type: string
+              description: 'e-mail'
+              example: labnscga@gmail.com      
     UserVIP.find:
       type: object
       properties:
@@ -1099,23 +1293,30 @@ components:
               properties:
                 image:
                   type: string
+    Document.upload:
+      type: object
+      properties:
+        _parts:
+          type: array
+          items: {}
+          example: [["file", "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQ..."], ["fileName", "XLSS0DA0YU8V7ZHMJTXZV"], ["contentType", "image/jpeg"], ["extension", "jpg"]]
     Rating.create:
       type: object
       properties:
         cognitoId:
           type: string
+          example: 71bdd7b1-e6dc-4ba0-a2df-28811252f320
         rate:
-          type: string
+          type: integer
           description: 'Nota de 1 à 5'
+          example: 5
         publishedDate:
           type: string
+          example: '2020-10-07T20:49:28.596Z'         
         version:
           type: string
           description: 'Versão do app que recebeu essa avaliação'
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
+          example: 4.0.59
     Rating.response:
       type: object
       properties:
