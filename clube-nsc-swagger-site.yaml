@@ -97,7 +97,6 @@ paths:
     post:
       tags:
         - benefit
-      summary: busca lista de todos benefits por evento (review)
       description: 'descrição TODO: como usar esse endpoint'
       operationId: getBenefitsEventList
       responses:
@@ -108,15 +107,13 @@ paths:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
+          description: Bad request
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.geteventlist'
   /benefit/v1/find/getlist:
     post:
       tags:
         - benefit
-      summary: Busca todos os vouchers por (criteirio?)
-      description: 'descrição TODO: como usar esse endpoint'
       operationId: getBenefitsList
       responses:
         '200':
@@ -126,14 +123,30 @@ paths:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid input/id/etc (todo)
+          description: Bad request
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.getlist'
+  /benefit/v1/find/by-id:
+    post:
+      tags:
+        - benefit
+      description: 'Busca um benefício por palavra chave (slug)'
+      operationId: findBenefitsById
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.find-by-id.response'
+        '400':
+          description: Bad request
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find-by-id'
   /benefit/v1/find/by-term-with-branches:
     post:
       tags:
         - benefit
-      summary: Busca vouchers por palavras chaves.
       description: 'descrição TODO: como usar esse endpoint'
       operationId: findBenefitsByTermWithBranches
       responses:
@@ -144,25 +157,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/Benefit.response'
         '400':
-          description: Invalid Voucher
-      requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
-  /benefit/v1/find/by-id:
-    post:
-      tags:
-        - benefit
-      summary: busca vouchers por ID
-      description: 'descrição TODO: como usar esse endpoint'
-      operationId: findBenefitsById
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Benefit.response'
-        '400':
-          description: Invalid Voucher
+          description: Bad request
       requestBody:
         $ref: '#/components/requestBodies/Benefit.find'
   
@@ -240,7 +235,27 @@ components:
             $ref: '#/components/schemas/Benefit.find'
       description: objeto body com options para a busca
       required: true
-    
+    Benefit.find-by-id:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-id'
+      description: 'Objeto body para filtrar a busca do benefit **objeto {"filters":{"slug":"_NOME_"}} no body do request é obrigatório**'
+      required: true
+    Benefit.geteventlist:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.geteventlist'
+      description: 'Objeto body para ordenar e paginar a busca dos benefits **TODO obrigatórios**'
+      required: true
+    Benefit.getlist:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.getlist'
+      description: 'Objeto body para ordenar e paginar a busca dos benefits **TODO obrigatórios**'
+      required: true
     Category.getAll:
       content:
         application/json:
@@ -608,6 +623,217 @@ components:
           type: array
           items:
             type: string
+    Benefit.find-by-id:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            slug:
+              type: string
+              example: "cinemulti"
+        options:
+          type: object
+    Benefit.geteventlist:
+      type: object
+      properties:
+        filters:
+          type: object
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            orderby:
+              type: object
+              properties:
+                events.0:
+                  type: integer
+                  example: 1
+    Benefit.getlist:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            flagSpotlight:
+              type: boolean
+              example: true
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 16
+            orderby:
+              type: object
+              properties:
+                updatedAt:
+                  type: integer
+                  example: -1
+    
+    Benefit.find-by-id.response:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: 'Status do benefício (ativo ou não)'
+        createdAt:
+          type: string
+          description: 'Data de criação do registro'
+        updatedAt:
+          type: string
+          description: 'Última data de modificação do registro'
+        _id:
+          type: string
+          description: 'ID do beneficio'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        type:
+          type: string
+          description: 'O tipo de benefício: event ou perennial'
+        flagPromotion:
+          type: boolean
+          description: 'Sem função no sistema atual'
+        flagSpotlight:
+          type: boolean
+          description: 'Se este benefício está marcado para aparecer na listagem de destaque'
+        flagHidden:
+          type: boolean
+          description: 'Se este benefício está visível'
+        title:
+          type: string
+          description: 'O título do benefício'
+        slug:
+          type: string
+          description: 'O título do benefício que vira link: beneficio/o-que-fazer-na-cama '
+        description:
+          type: string
+          description: 'A descrição do benefício'
+        resume:
+          type: string
+          description: 'Resumo do benefício'
+        videoUrl:
+          type: string
+          description: 'Não está sendo usada. A URL do video do benefício'
+        discountType:
+          type: string
+          description: 'O tipo de desconto do benefício: percent ou plain'
+        discount:
+          type: string
+          description: 'O valor do desconto do benefício'
+        eventDescription:
+          type: string
+          description: 'Descrição do evento'
+        siteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        tinySiteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        footerNote:
+          type: string
+          description: 'Nota de rodapé'
+        shelfLifeStart:
+          type: string
+          description: 'Data de início da disponibilidade do benefício' 
+        shelfLifeEnd:
+          type: string
+          description: 'Data do fim da disponibilidade do benefício' 
+        redemptionType:
+          type: string
+          description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
+        voucherCode:
+          type: string
+          description: 'Código usado na geração do voucher quando redemptionType é promocode'
+        preGeneratedCode:
+          type: string
+          description: 'Flag que define se os códigos do benefício são pré-gerados (a partir de um arquivo .csv)'
+        voucherAmount:
+          type: string
+          description: 'Quantos vouchers vão poder ser gerados para esse benefício'
+        limitVoucherByUser:
+          type: string
+          description: '>-
+            Identifica se existe limite de vouchers gerados por usuário para
+            esse benefício'
+        voucherUserLimit:
+          type: string
+          description: >-
+            Quantidade de vouchers que podem ser gerados por usuário para esse
+            benefício
+        voucherShelfLife:
+          type: string
+          description: >-
+            Quantidade de dias até que o voucher expire
+        benefitImage:
+          type: string
+          description: 'Identificador da imagem desse beneficio'
+        
+        
+        bannerUrl:
+          type: string
+          description: 'Url do banner desse benefício'
+        howToUseVoucher:
+          type: string
+          description: 'Explicação para o usuário do site para como usar esse benefício'
+        usepoints:
+          type: array
+          description: '???'
+          items:
+            type: object
+        salespoints:
+          type: array
+          description: 'pontos de venda?'
+          items:
+            type: object
+        usepointList:
+          type: array
+          description: '????'
+          items:
+            type: object
+        categoryList:
+          type: array
+          description: '?????'
+          items:
+            type: object
+        salespointList:
+          type: array
+          description: '?????'
+          items:
+            type: object
+        business:
+          type: array
+          description: '?????'
+          items:
+            type: object
+          
+          
+        voucherPeriodLimit:
+          type: string
+          description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
+        events:
+          type: string
+          description: 'Data dos eventos'
+        branches:
+          description: 'Unidades relacionadas à esse benefício'
+          type: array
+          items:
+            type: object
+        categories:
+          description: 'Categorias em que esse benefício pertence'
+          type: array
+          items:
+            type: string
+        
     Benefit.response:
       type: object
       properties:
@@ -706,6 +932,46 @@ components:
         benefitImage:
           type: string
           description: 'Identificador da imagem desse beneficio'
+        
+        
+        bannerUrl:
+          type: string
+          description: 'Url do banner desse benefício'
+        howToUseVoucher:
+          type: string
+          description: 'Explicação para o usuário do site para como usar esse benefício'
+        usepoints:
+          type: array
+          description: '???'
+          items:
+            type: object
+        salespoints:
+          type: array
+          description: 'pontos de venda?'
+          items:
+            type: object
+        usepointList:
+          type: array
+          description: '????'
+          items:
+            type: object
+        categoryList:
+          type: array
+          description: '?????'
+          items:
+            type: object
+        salespointList:
+          type: array
+          description: '?????'
+          items:
+            type: object
+        business:
+          type: array
+          description: '?????'
+          items:
+            type: object
+          
+          
         voucherPeriodLimit:
           type: string
           description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
@@ -813,5 +1079,3 @@ components:
         status:
           type: boolean
           description: 'Se esta pergunta/resposta está ativa ou não'
-    
-    
