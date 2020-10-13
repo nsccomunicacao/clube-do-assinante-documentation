@@ -48,8 +48,7 @@ paths:
     post:
       tags:
         - voucher
-      summary: busca vouchers baseado no status (ActiveVouchers/UsedVouchers)
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Busca vouchers baseado no status (ActiveVouchers/UsedVouchers)'
       operationId: findVoucherByStatus
       responses:
         '200':
@@ -66,8 +65,7 @@ paths:
     post:
       tags:
         - voucher
-      summary: busca um voucher.
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Busca um voucher'
       operationId: findOneVoucher
       responses:
         '200':
@@ -84,8 +82,7 @@ paths:
     post:
       tags:
         - voucher
-      summary: deleta um voucher.
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Deleta um voucher'
       operationId: removeVoucher
       responses:
         '200':
@@ -107,8 +104,7 @@ paths:
     post:
       tags:
         - voucher
-      summary: cria um voucher.
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Cria um voucher'
       operationId: generateVoucher
       responses:
         '200':
@@ -130,8 +126,7 @@ paths:
     post:
       tags:
         - voucher
-      summary: vota em um voucher.
-      description: 'Atualiza um voucher, por exemplo para votar(dar nota) em um voucher'
+      description: 'Atualiza um voucher, por exemplo para que o usuário vote(dar nota) em um voucher'
       operationId: updateVoucher
       responses:
         '200':
@@ -587,6 +582,20 @@ components:
         filters:
           type: object
           properties:
+            spotlight:
+              type: boolean
+              example: true
+            type:
+              type: string
+              example: 'perennial'
+            ignoreIdList:
+              type: array
+              description: 'IDs para serem ignoradas na busca'
+              items: {}
+              example:
+                [
+                  5ef1c58af25942a61a574476,
+                ]
             categories:
               type: array
               description: 'Filtrar por categoria'
@@ -658,120 +667,6 @@ components:
               type: string
               description: 'ID'
               example: 5ef24632be414400082cbe05
-    Benefit.find:
-      type: object
-      properties:
-        status:
-          type: boolean
-          description: 'Status do benefício (ativo ou não)'
-        createdAt:
-          type: string
-          description: 'Data de criação do registro'
-        updatedAt:
-          type: string
-          description: 'Última data de modificação do registro'
-        _id:
-          type: string
-          description: 'ID do beneficio'
-        businessId:
-          type: string
-          description: 'ID do parceiro que oferece o beneficio'
-        type:
-          type: string
-          description: 'O tipo de benefício: event ou perennial'
-        flagPromotion:
-          type: boolean
-          description: 'Sem função no sistema atual'
-        flagSpotlight:
-          type: boolean
-          description: 'Se este benefício está marcado para aparecer na listagem de destaque'
-        flagHidden:
-          type: boolean
-          description: 'Se este benefício está visível'
-        title:
-          type: string
-          description: 'O título do benefício'
-        slug:
-          type: string
-          description: 'O título do benefício que vira link: beneficio/o-que-fazer-na-cama '
-        description:
-          type: string
-          description: 'A descrição do benefício'
-        resume:
-          type: string
-          description: 'Resumo do benefício'
-        videoUrl:
-          type: string
-          description: 'Não está sendo usada. A URL do video do benefício'
-        discountType:
-          type: string
-          description: 'O tipo de desconto do benefício: percent ou plain'
-        discount:
-          type: string
-          description: 'O valor do desconto do benefício'
-        eventDescription:
-          type: string
-          description: 'Descrição do evento'
-        siteUrl:
-          type: string
-          description: 'A URL do parceiro reference ao benefício'
-        tinySiteUrl:
-          type: string
-          description: 'A URL do parceiro reference ao benefício'
-        footerNote:
-          type: string
-          description: 'Nota de rodapé'
-        shelfLifeStart:
-          type: string
-          description: 'Data de início da disponibilidade do benefício'
-        shelfLifeEnd:
-          type: string
-          description: 'Data do fim da disponibilidade do benefício'
-        redemptionType:
-          type: string
-          description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
-        voucherCode:
-          type: string
-          description: 'Código usado na geração do voucher quando redemptionType é promocode'
-        preGeneratedCode:
-          type: string
-          description: 'Flag que define se os códigos do benefício são pré-gerados (a partir de um arquivo .csv)'
-        voucherAmount:
-          type: string
-          description: 'Quantos vouchers vão poder ser gerados para esse benefício'
-        limitVoucherByUser:
-          type: string
-          description: '>-
-            Identifica se existe limite de vouchers gerados por usuário para
-            esse benefício'
-        voucherUserLimit:
-          type: string
-          description: >-
-            Quantidade de vouchers que podem ser gerados por usuário para esse
-            benefício
-        voucherShelfLife:
-          type: string
-          description: >-
-            Quantidade de dias até que o voucher expire
-        benefitImage:
-          type: string
-          description: 'Identificador da imagem desse beneficio'
-        voucherPeriodLimit:
-          type: string
-          description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
-        events:
-          type: string
-          description: 'Data dos eventos'
-        branches:
-          description: 'Unidades relacionadas à esse benefício'
-          type: array
-          items:
-            type: object
-        categories:
-          description: 'Categorias em que esse benefício pertence'
-          type: array
-          items:
-            type: string
     Benefit.response:
       type: object
       required:
