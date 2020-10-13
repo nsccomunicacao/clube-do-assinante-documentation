@@ -97,7 +97,7 @@ paths:
     post:
       tags:
         - benefit
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Busca por benefits '
       operationId: getBenefitsEventList
       responses:
         '200':
@@ -114,6 +114,7 @@ paths:
     post:
       tags:
         - benefit
+      description: 'Busca por benefits '
       operationId: getBenefitsList
       responses:
         '200':
@@ -130,7 +131,8 @@ paths:
     post:
       tags:
         - benefit
-      description: 'Busca um benefício por palavra chave (slug)'
+      description: 'Busca um benefício específico baseado em seu identificador (slug)<br/>
+                    Esse endpoint é usado quando se clica em um benefit no site para pegar todos seus detalhes'
       operationId: findBenefitsById
       responses:
         '200':
@@ -147,7 +149,8 @@ paths:
     post:
       tags:
         - benefit
-      description: 'descrição TODO: como usar esse endpoint'
+      description: 'Busca por benefits associados com uma palavra chave<br/>
+                    Esse endpoint é usado para buscar por benefícios no site usando a barra de pesquisa'
       operationId: findBenefitsByTermWithBranches
       responses:
         '200':
@@ -159,7 +162,7 @@ paths:
         '400':
           description: Bad request
       requestBody:
-        $ref: '#/components/requestBodies/Benefit.find'
+        $ref: '#/components/requestBodies/Benefit.find-by-term-with-branches'
   
   /faq/v1/find:
     post:
@@ -247,15 +250,23 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Benefit.geteventlist'
-      description: 'Objeto body para ordenar e paginar a busca dos benefits **TODO obrigatórios**'
+      description: 'Objeto body para ordenar e paginar a busca dos benefits'
       required: true
     Benefit.getlist:
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Benefit.getlist'
-      description: 'Objeto body para ordenar e paginar a busca dos benefits **TODO obrigatórios**'
+      description: 'Objeto body para ordenar e paginar a busca dos benefits'
       required: true
+    Benefit.find-by-term-with-branches:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-term-with-branches'
+      description: 'Objeto body para buscar por benefits **objeto {"filters":{"term":"_BUSCA_", "partial":true}} no body do request é obrigatório**'
+      required: true
+    
     Category.getAll:
       content:
         application/json:
@@ -623,17 +634,27 @@ components:
           type: array
           items:
             type: string
-    Benefit.find-by-id:
+    Benefit.find-by-term-with-branches:
       type: object
       properties:
         filters:
           type: object
           properties:
-            slug:
+            term:
               type: string
-              example: "cinemulti"
+              example: "pet"
+            partial:
+              type: boolean
+              example: true
         options:
           type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 16
     Benefit.geteventlist:
       type: object
       properties:
@@ -678,6 +699,18 @@ components:
                 updatedAt:
                   type: integer
                   example: -1
+    Benefit.find-by-id:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            slug:
+              type: string
+              example: "cinemulti"
+        options:
+          type: object
+    
     
     Benefit.find-by-id.response:
       type: object
@@ -833,7 +866,6 @@ components:
           type: array
           items:
             type: string
-        
     Benefit.response:
       type: object
       properties:
