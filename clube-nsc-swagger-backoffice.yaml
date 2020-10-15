@@ -1,0 +1,984 @@
+openapi: 3.0.0
+info:
+  description: >-
+    Mapeamento dos endpoints utilizados pelo backoffice do Clube NSC.
+  version: 1.0.0-oas3
+  title: BACKOFFICE - Clube NSC API Docs
+  termsOfService: 'http://swagger.io/terms/'
+  contact:
+    email: kleyson.sousa@somosnsc.com.br
+  license:
+    name: Licença de uso Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: access
+    description: validação de acesso (revisar)
+  - name: business
+    description: Parceiros (revisar)
+  - name: voucher
+    description: Consumo e utilização de vouchers
+  - name: branch
+    description: Locais físicos ou online onde se pode utilizar um voucher (revisar)
+  - name: category
+    description: Consumo de categorias
+  - name: user-vip
+    description: Verifica sócio beneficiado
+  - name: banner
+    description: Banners dos benfícios (ex, na home do site do Clube)
+  - name: content
+    description: Conteúdo de texto de alguns elementos do site do Clube
+  - name: faq
+    description: Perguntas e respostas sobre o Clube do Assinante
+paths:
+  /voucher/v1/find:
+    post:
+      tags:
+        - voucher
+      summary: ''
+      description: 'busca todos os vouchers'
+      operationId: findVouchers
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Voucher.find'
+  /voucher/v1/find/by-status:
+    post:
+      tags:
+        - voucher
+      description: 'Busca vouchers baseado no status (ActiveVouchers/UsedVouchers)'
+      operationId: findVoucherByStatus
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Voucher.find'
+  /voucher/v1/find/one:
+    post:
+      tags:
+        - voucher
+      description: 'Busca um voucher'
+      operationId: findOneVoucher
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Voucher.find'
+  /voucher/v1/delete:
+    post:
+      tags:
+        - voucher
+      description: 'Deleta um voucher'
+      operationId: removeVoucher
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.find'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Voucher.response'
+        description: objeto body com ID do voucher a ser removido
+        required: true
+  /voucher/v1/generateVoucher:
+    post:
+      tags:
+        - voucher
+      description: 'Cria um voucher'
+      operationId: generateVoucher
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Voucher.create'
+        description: objeto body com dados para criar um novo voucher
+        required: true
+  /voucher/v1/update:
+    post:
+      tags:
+        - voucher
+      description: 'Atualiza um voucher, por exemplo para que o usuário vote(dar nota) em um voucher'
+      operationId: updateVoucher
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Voucher.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Voucher.update'
+        description: objeto body dados para atualizar um voucher
+        required: true
+  
+  /benefit/v1/find:
+    post:
+      tags:
+        - benefit
+      summary: Busca por benefícios
+      description: 'Buscar benefícios podendo utilizar vários filtros'
+      operationId: findBenefitsByType
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find'
+  /benefit/v1/find/by-type:
+    post:
+      tags:
+        - benefit
+      summary: Buscar por Tipo
+      description: 'Buscar benefícios pelo tipo: evento ou perene'
+      operationId: findBenefitsByType
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find-by-type'
+  /benefit/v1/find/by-near:
+    post:
+      tags:
+        - benefit
+      summary: Buscar por Proximidade
+      description: 'Busca baseada na localização'
+      operationId: findBenefitsByNear
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find-by-near'
+  /benefit/v1/find/by-term:
+    post:
+      tags:
+        - benefit
+      summary: Buscar por Termo
+      description: 'Busca baseada no termo informado'
+      operationId: findBenefitsByTerm
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find-by-term'
+  /benefit/v1/find/by-id:
+    post:
+      tags:
+        - benefit
+      summary: Buscar por ID
+      description: 'Busca benefício com base no ID informado'
+      operationId: findBenefitsById
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Benefit.find-by-id'
+  
+  /category/v1/find/getAll:
+    post:
+      tags:
+        - category
+      summary: Buscar Categorias
+      description: 'Busca todas as categorias cadastradas'
+      operationId: getAllCategories
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Benefit.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+          $ref: '#/components/requestBodies/Category.find-getAll'
+  
+  /user-vip/v1/find/one:
+    post:
+      tags:
+        - user-vip
+      summary: Buscar Sócio Beneficiado
+      description: 'Buscar sócio beneficiado baseado no e-mail'
+      operationId: userVipFindOne
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserVIP.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/UserVIP.find-user-vip'
+  
+externalDocs:
+  description: Documentação auxiliar (Google docs)
+  url: >-
+    https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE
+servers:
+  - url: 'https://stg-api.clubensc.com.br'
+    description: Staging server
+  - url: 'https://api.clubensc.com.br'
+    description: Production server
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
+  requestBodies:
+    Voucher.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voucher.find'
+      description: objeto body com options para a busca
+      required: true
+    
+    Benefit.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find'
+      description: 'Objeto body com várias opções para filtrar a buscar pelo benefício<br/>
+                    Todas as propriedades de filters são opcionais'
+      required: true
+    Benefit.find-by-type:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-type'
+      description: Objeto body com opções para buscar pelo tipo `event`
+      required: true
+    Benefit.find-by-near:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-near'
+      description: Objeto body com opções para buscar benefícios próximos filtrando por categorias
+      required: true
+    Benefit.find-by-term:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-term'
+      description: Objeto body com opções para buscar benefícios por termo
+      required: true
+    Benefit.find-by-id:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Benefit.find-by-id'
+      description: Objeto body com opções para buscar benefícios por ID
+      required: true
+    
+    Category.find-getAll:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Category.find-getAll'
+      description: Objeto body com opções para buscar todas as categorias
+      required: true    
+    
+    UserVIP.find-user-vip:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserVIP.find-user-vip'
+      description: Objeto body com opções para buscar sócio beneficiado por e-mail
+      required: true 
+    
+  schemas:
+    Voucher.find:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID do voucher'
+        userId:
+          type: string
+          description: 'ID do usuário que possui esse voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: 'depreciada'
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+            tovalidate: voucher criado, mas não usado, 
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+            used: voucher validado e avaliado pelo cliente
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+    Voucher.create:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'ID do usuário que possui esse voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: 'depreciada'
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+            tovalidate: voucher criado, mas não usado, 
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+            used: voucher validado e avaliado pelo cliente
+    Voucher.update:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID do voucher'
+        userId:
+          type: string
+          description: 'ID do usuário que possui esse voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: 'depreciada'
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+            tovalidate: voucher criado, mas não usado, 
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+            used: voucher validado e avaliado pelo cliente
+    Voucher.delete:
+      type: object
+      properties:
+        _id:
+          type: string
+          required:
+            - _id
+    Voucher.response:
+      type: object
+      properties:
+        userId:
+          type: string
+          description: 'ID do usuário que possui o voucher'
+        benefitId:
+          type: string
+          description: 'ID do beneficio que esse voucher pertence'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        branchId:
+          type: string
+          description: 'ID da unidade de uso do benefício'
+        qrcode:
+          type: string
+          description: 'Código do voucher'
+        shopValue:
+          type: number
+          format: float
+          description: depreciada
+        rate:
+          type: integer
+          description: 'Avaliação do usuário'
+        status:
+          type: string
+          description: >-
+            Um de: 
+            tovalidate: voucher criado, mas não usado, 
+            pending: voucher validado por um parceiro, mas ainda não avaliado
+            pelo cliente, 
+            used: voucher validado e avaliado pelo cliente
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+    
+    Benefit.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          description: 'Filtros da busca'
+          properties:
+            type:
+              type: string
+              example: 'event'
+            status:
+              type: boolean
+              example: true
+            title:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'titulo'
+                $options:
+                  type: string
+                  example: 'i'
+            discount:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: '99'
+                $options:
+                  type: string
+                  example: 'i'
+            shelfLifeStart:
+              type: object
+              properties:
+                $gt:
+                  type: string
+                  example: '2020-01-01T21:05:00.000Z'
+            shelfLifeEnd:
+              type: object
+              properties:
+                lt:
+                  type: string
+                  example: '2020-10-01T21:05:00.000Z'
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
+    
+    Benefit.find-by-type:
+      type: object
+      properties:
+        filters:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            type:
+              type: string
+              example: event
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            orderby:
+              type: object
+              properties:
+                events.0:
+                  type: integer
+                  example: 1
+    Benefit.find-by-near:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            spotlight:
+              type: boolean
+              example: true
+            type:
+              type: string
+              example: 'perennial'
+            ignoreIdList:
+              type: array
+              description: 'IDs para serem ignoradas na busca'
+              items: {}
+              example:
+                [
+                  5ef1c58af25942a61a574476,
+                ]
+            categories:
+              type: array
+              description: 'Filtrar por categoria'
+              items: {}
+              example:
+                [
+                  5ef1c58af25942a61a573c70,
+                  5ef1c58af25942a61a573c3e,
+                  5ef1c58af25942a61a573ca3,
+                  5ef1c58af25942a61a573c72,
+                  5ef1c58af25942a61a573c66,
+                  5ef1c58af25942a61a573c75,
+                ]
+            coordinates:
+              type: object
+              description: 'Filtrar coordenadas'
+              properties:
+                lng:
+                  type: number
+                  example: -122.406417
+                lat:
+                  type: number
+                  example: 37.785834
+            minDistance:
+              type: integer
+              example: 0
+        options:
+          type: object
+          properties:
+            limit:
+              type: integer
+              example: 7
+    Benefit.find-by-term:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            term:
+              type: string
+              description: 'Termo'
+              example: pet
+            partial:
+              type: boolean
+              example: true
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 7
+            orderby:
+              type: object
+              properties:
+                events.0:
+                  type: integer
+                  example: 1
+    Benefit.find-by-id:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            _id:
+              type: string
+              description: 'ID'
+              example: 5ef24632be414400082cbe05
+    Benefit.response:
+      type: object
+      required:
+        - _id
+        - businessId
+        - type
+        - flagPromotion
+        - flagSpotlight
+        - flagHidden
+        - status
+        - title
+        - slug
+        - description
+        - resume
+        - videoUrl
+        - discountType
+        - discount
+        - shelfLifeStart
+        - shelfLifeEnd
+        - redemptionType
+      properties:
+        status:
+          type: boolean
+          description: 'Status do benefício (ativo ou não)'
+        createdAt:
+          type: string
+          description: 'Data de criação do registro'
+        updatedAt:
+          type: string
+          description: 'Última data de modificação do registro'
+        _id:
+          type: string
+          description: 'ID do beneficio'
+        businessId:
+          type: string
+          description: 'ID do parceiro que oferece o beneficio'
+        type:
+          type: string
+          description: 'O tipo de benefício: event ou perennial'
+        flagPromotion:
+          type: boolean
+          description: 'Sem função no sistema atual'
+        flagSpotlight:
+          type: boolean
+          description: 'Se este benefício está marcado para aparecer na listagem de destaque'
+        flagHidden:
+          type: boolean
+          description: 'Se este benefício está visível'
+        title:
+          type: string
+          description: 'O título do benefício'
+        slug:
+          type: string
+          description: 'O título do benefício que vira link: beneficio/o-que-fazer-na-cama '
+        description:
+          type: string
+          description: 'A descrição do benefício'
+        resume:
+          type: string
+          description: 'Resumo do benefício'
+        videoUrl:
+          type: string
+          description: 'Não está sendo usada. A URL do video do benefício'
+        discountType:
+          type: string
+          description: 'O tipo de desconto do benefício: percent ou plain'
+        discount:
+          type: string
+          description: 'O valor do desconto do benefício'
+        eventDescription:
+          type: string
+          description: 'Descrição do evento'
+        siteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        tinySiteUrl:
+          type: string
+          description: 'A URL do parceiro reference ao benefício'
+        footerNote:
+          type: string
+          description: 'Nota de rodapé'
+        shelfLifeStart:
+          type: string
+          description: 'Data de início da disponibilidade do benefício'
+        shelfLifeEnd:
+          type: string
+          description: 'Data do fim da disponibilidade do benefício'
+        redemptionType:
+          type: string
+          description: 'Tipo do código gerado na criação do voucher: promocode, limitedvocuher ou limitlessvoucher'
+        voucherCode:
+          type: string
+          description: 'Código usado na geração do voucher quando redemptionType é promocode'
+        preGeneratedCode:
+          type: string
+          description: 'Flag que define se os códigos do benefício são pré-gerados (a partir de um arquivo .csv)'
+        voucherAmount:
+          type: string
+          description: 'Quantos vouchers vão poder ser gerados para esse benefício'
+        limitVoucherByUser:
+          type: string
+          description: '>-
+            Identifica se existe limite de vouchers gerados por usuário para
+            esse benefício'
+        voucherUserLimit:
+          type: string
+          description: >-
+            Quantidade de vouchers que podem ser gerados por usuário para esse
+            benefício
+        voucherShelfLife:
+          type: string
+          description: >-
+            Quantidade de dias até que o voucher expire
+        benefitImage:
+          type: string
+          description: 'Identificador da imagem desse beneficio'
+        voucherPeriodLimit:
+          type: string
+          description: 'Quantidades de dias necessárias para resetar o limite de vouchers por usuário (ex: um voucher a cada 10 dias)'
+        events:
+          type: string
+          description: 'Data dos eventos'
+        branches:
+          description: 'Unidades relacionadas à esse benefício'
+          type: array
+          items:
+            type: object
+        categories:
+          description: 'Categorias em que esse benefício pertence'
+          type: array
+          items:
+            type: string
+    
+    Category.find-getAll:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            status:
+              type: boolean
+              example: true    
+    Category.find:
+      type: object
+      properties:
+        status:
+          type: boolean
+          description: 'Categoria ativa ou não'
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+        _id:
+          type: string
+        name:
+          type: string
+        showMenu:
+          type: boolean
+          description: 'Se a categoria aparece no menu do website'
+        showApp:
+          type: boolean
+          description: 'Se a categoria aparece no menu do app'
+        weight:
+          type: integer
+          description: 'Ordem que as categorias são organizadas, menor aparece antes'
+        weightByDate:
+          type: boolean
+          description: 'Depreciada'
+        parentId:
+          type: string
+          description: 'ID da categoria pai, se existir'
+        iconAppUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no app'
+        backgroundAppUrl:
+          type: string
+          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
+        iconWebsiteUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no website'
+    Category.response:
+      type: object
+      required:
+        - name
+        - showMenu
+        - showApp
+        - status
+        - weight
+        - weightByDate
+      properties:
+        status:
+          type: boolean
+          description: 'Categoria ativa ou não'
+        createdAt:
+          type: string
+          description: date-time
+        updatedAt:
+          type: string
+          description: date-time
+        _id:
+          type: string
+        name:
+          type: string
+        showMenu:
+          type: boolean
+          description: 'Se a categoria aparece no menu do website'
+        showApp:
+          type: boolean
+          description: 'Se a categoria aparece no menu do app'
+        weight:
+          type: integer
+          description: 'Ordem que as categorias são organizadas, menor aparece antes'
+        weightByDate:
+          type: boolean
+          description: 'Depreciada'
+        parentId:
+          type: string
+          description: 'ID da categoria pai, se existir'
+        iconAppUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no app'
+        backgroundAppUrl:
+          type: string
+          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
+        iconWebsiteUrl:
+          type: string
+          description: 'Identificador do imagem do ícone usado no website'
+    
+    UserVIP.find-user-vip:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            email:
+              type: string
+              description: 'e-mail'
+              example: labnscga@gmail.com      
+    UserVIP.find:
+      type: object
+      properties:
+        _id:
+          type: string
+        cpf:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+        expiracy:
+          type: string
+          description: 'Data que o usuário não consegue mais utilizar o sistema. Se não possuir valor não expira'
+        perfil:
+          type: string
+          description: 'Tipo do perfil: FUNCIONARIO, VITALICIO ou ARBS'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
+    UserVIP.response:
+      type: object
+      required:
+        - _id
+        - cpf
+        - name
+        - email
+      properties:
+        _id:
+          type: string
+        cpf:
+          type: string
+        name:
+          type: string
+        email:
+          type: string
+        status:
+          type: string
+        expiracy:
+          type: string
+          description: 'Data que o usuário não consegue mais utilizar o sistema. Se não possuir valor não expira'
+        perfil:
+          type: string
+          description: 'Tipo do perfil: FUNCIONARIO, VITALICIO ou ARBS'
+        createdAt:
+          type: string
+        updatedAt:
+          type: string
