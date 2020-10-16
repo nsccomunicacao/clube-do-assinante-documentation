@@ -15,6 +15,8 @@ tags:
     description: validação de acesso (revisar)
   - name: business
     description: Parceiros (revisar)
+  - name: benefit
+    description: Benefícios dos parceiros do Clube
   - name: voucher
     description: Consumo e utilização de vouchers
   - name: branch
@@ -30,6 +32,26 @@ tags:
   - name: faq
     description: Perguntas e respostas sobre o Clube do Assinante
 paths:
+
+  /business/v1/find:
+    post:
+      tags:
+        - business
+      summary: Busca por benefícios
+      description: 'Buscar benefícios podendo utilizar vários filtros'
+      operationId: findBusiness
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Business.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Business.find'
+  
   /voucher/v1/find:
     post:
       tags:
@@ -48,24 +70,7 @@ paths:
           description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Voucher.find'
-  /voucher/v1/find/by-status:
-    post:
-      tags:
-        - voucher
-      description: 'Busca vouchers baseado no status (ActiveVouchers/UsedVouchers)'
-      operationId: findVoucherByStatus
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        $ref: '#/components/requestBodies/Voucher.find'
-  /voucher/v1/find/one:
+  /voucher/v1/getList:
     post:
       tags:
         - voucher
@@ -155,7 +160,7 @@ paths:
         - benefit
       summary: Busca por benefícios
       description: 'Buscar benefícios podendo utilizar vários filtros'
-      operationId: findBenefitsByType
+      operationId: findBenefits
       responses:
         '200':
           description: Successful Operation
@@ -167,78 +172,6 @@ paths:
           description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Benefit.find'
-  /benefit/v1/find/by-type:
-    post:
-      tags:
-        - benefit
-      summary: Buscar por Tipo
-      description: 'Buscar benefícios pelo tipo: evento ou perene'
-      operationId: findBenefitsByType
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Benefit.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        $ref: '#/components/requestBodies/Benefit.find-by-type'
-  /benefit/v1/find/by-near:
-    post:
-      tags:
-        - benefit
-      summary: Buscar por Proximidade
-      description: 'Busca baseada na localização'
-      operationId: findBenefitsByNear
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Benefit.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        $ref: '#/components/requestBodies/Benefit.find-by-near'
-  /benefit/v1/find/by-term:
-    post:
-      tags:
-        - benefit
-      summary: Buscar por Termo
-      description: 'Busca baseada no termo informado'
-      operationId: findBenefitsByTerm
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Benefit.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        $ref: '#/components/requestBodies/Benefit.find-by-term'
-  /benefit/v1/find/by-id:
-    post:
-      tags:
-        - benefit
-      summary: Buscar por ID
-      description: 'Busca benefício com base no ID informado'
-      operationId: findBenefitsById
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Benefit.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        $ref: '#/components/requestBodies/Benefit.find-by-id'
   
   /category/v1/find/getAll:
     post:
@@ -294,6 +227,15 @@ components:
       scheme: bearer
       bearerFormat: JWT 
   requestBodies:
+  
+    Business.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Business.find'
+      description: objeto body com options para a busca
+      required: true
+  
     Voucher.find:
       content:
         application/json:
@@ -309,34 +251,6 @@ components:
             $ref: '#/components/schemas/Benefit.find'
       description: 'Objeto body com várias opções para filtrar a buscar pelo benefício<br/>
                     Todas as propriedades de filters são opcionais'
-      required: true
-    Benefit.find-by-type:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Benefit.find-by-type'
-      description: Objeto body com opções para buscar pelo tipo `event`
-      required: true
-    Benefit.find-by-near:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Benefit.find-by-near'
-      description: Objeto body com opções para buscar benefícios próximos filtrando por categorias
-      required: true
-    Benefit.find-by-term:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Benefit.find-by-term'
-      description: Objeto body com opções para buscar benefícios por termo
-      required: true
-    Benefit.find-by-id:
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Benefit.find-by-id'
-      description: Objeto body com opções para buscar benefícios por ID
       required: true
     
     Category.find-getAll:
@@ -356,6 +270,121 @@ components:
       required: true 
     
   schemas:
+  
+    Business.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          description: 'Filtros da busca'
+        aggregates:
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+                example: 'branch'
+              field:
+                type: string
+                example: 'branches'
+              match:
+                type: string
+                example: '_id'
+              result:
+                type: string
+                example: 'branchesList'
+        options:
+          type: object
+          description: 'Filtrar tipo'
+          properties:
+            aggregates:
+              type: array
+              items:
+                type: object
+                properties:
+                  $sort:
+                    type: object
+                    properties:
+                      name:
+                        type: integer
+                        example: 1
+    
+    Business.response:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'Id do business'
+        name:
+          type: string
+          description: 'Nome do estabelecimento'
+        alias:
+          type: string
+          description: ''
+        cnpj:
+          type: string
+          description: ''
+        address:
+          type: string
+          description: ''
+        number:
+          type: string
+          description: ''
+        district:
+          type: string
+          description: ''
+        complement:
+          type: string
+          description: ''
+        city:
+          type: string
+          description: ''
+        state:
+          type: string
+          description: ''
+        contact:
+          type: string
+          description: ''
+        email:
+          type: string
+          description: ''
+        site:
+          type: string
+          description: ''
+        zipcode:
+          type: string
+          description: ''
+        phone:
+          type: string
+          description: ''
+        stage:
+          type: string
+          description: ''
+        status:
+          type: boolean
+          description: ''
+        branches:
+          type: array
+          description: ''
+          items:
+            type: string
+            example: '5ef1c58af25942a61a5737d7'
+        branchesList:
+          type: array
+          items:
+            type: object
+            properties:
+              from:
+                type: string
+                example: 'branch'
+              field:
+                type: string
+                example: 'branches'
+            
+          
+          
+          
     Voucher.find:
       type: object
       properties:
@@ -573,124 +602,6 @@ components:
                 _id:
                   type: integer
                   example: -1
-    
-    Benefit.find-by-type:
-      type: object
-      properties:
-        filters:
-          type: object
-          description: 'Filtrar tipo'
-          properties:
-            type:
-              type: string
-              example: event
-        options:
-          type: object
-          description: 'Filtrar tipo'
-          properties:
-            skip:
-              type: integer
-              example: 0
-            limit:
-              type: integer
-              example: 7
-            orderby:
-              type: object
-              properties:
-                events.0:
-                  type: integer
-                  example: 1
-    Benefit.find-by-near:
-      type: object
-      properties:
-        filters:
-          type: object
-          properties:
-            spotlight:
-              type: boolean
-              example: true
-            type:
-              type: string
-              example: 'perennial'
-            ignoreIdList:
-              type: array
-              description: 'IDs para serem ignoradas na busca'
-              items: {}
-              example:
-                [
-                  5ef1c58af25942a61a574476,
-                ]
-            categories:
-              type: array
-              description: 'Filtrar por categoria'
-              items: {}
-              example:
-                [
-                  5ef1c58af25942a61a573c70,
-                  5ef1c58af25942a61a573c3e,
-                  5ef1c58af25942a61a573ca3,
-                  5ef1c58af25942a61a573c72,
-                  5ef1c58af25942a61a573c66,
-                  5ef1c58af25942a61a573c75,
-                ]
-            coordinates:
-              type: object
-              description: 'Filtrar coordenadas'
-              properties:
-                lng:
-                  type: number
-                  example: -122.406417
-                lat:
-                  type: number
-                  example: 37.785834
-            minDistance:
-              type: integer
-              example: 0
-        options:
-          type: object
-          properties:
-            limit:
-              type: integer
-              example: 7
-    Benefit.find-by-term:
-      type: object
-      properties:
-        filters:
-          type: object
-          properties:
-            term:
-              type: string
-              description: 'Termo'
-              example: pet
-            partial:
-              type: boolean
-              example: true
-        options:
-          type: object
-          description: 'Filtrar tipo'
-          properties:
-            skip:
-              type: integer
-              example: 0
-            limit:
-              type: integer
-              example: 7
-            orderby:
-              type: object
-              properties:
-                events.0:
-                  type: integer
-                  example: 1
-    Benefit.find-by-id:
-      type: object
-      properties:
-        filters:
-          type: object
-          properties:
-            _id:
-              type: string
-              description: 'ID'
-              example: 5ef24632be414400082cbe05
     Benefit.response:
       type: object
       required:
