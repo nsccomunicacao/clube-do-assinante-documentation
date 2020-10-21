@@ -28,6 +28,8 @@ tags:
 paths:
   /voucher/v1/find:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       summary: ''
