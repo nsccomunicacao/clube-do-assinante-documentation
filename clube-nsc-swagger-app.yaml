@@ -48,6 +48,8 @@ paths:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/find/by-status:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       description: 'Busca vouchers baseado no status (ActiveVouchers/UsedVouchers)'
@@ -65,6 +67,8 @@ paths:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/find/one:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       description: 'Busca um voucher'
@@ -82,6 +86,8 @@ paths:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/delete:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       description: 'Deleta um voucher'
@@ -104,6 +110,8 @@ paths:
         required: true
   /voucher/v1/generateVoucher:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       description: 'Cria um voucher'
@@ -126,6 +134,8 @@ paths:
         required: true
   /voucher/v1/update:
     post:
+      security:
+        - bearerAuth: []
       tags:
         - voucher
       description: 'Atualiza um voucher, por exemplo para que o usuário vote(dar nota) em um voucher'
