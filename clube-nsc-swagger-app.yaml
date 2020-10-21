@@ -64,7 +64,7 @@ paths:
         '400':
           description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Voucher.find'
+        $ref: '#/components/requestBodies/Voucher.find-by-status'
   /voucher/v1/find/one:
     post:
       security:
@@ -129,7 +129,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Voucher.create'
+              $ref: '#/components/schemas/Voucher.generate'
         description: objeto body com dados para criar um novo voucher
         required: true
   /voucher/v1/update:
@@ -339,7 +339,21 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Voucher.find'
-      description: objeto body com options para a busca
+      description: objeto body para filtrar da busca
+      required: true
+    Voucher.find-by-status:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voucher.find-by-status'
+      description: objeto body para filtrar da busca
+      required: true
+    Voucher.generate:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voucher.generate'
+      description: objeto body para filtrar da busca
       required: true
     Benefit.find-by-type:
       content:
@@ -408,45 +422,33 @@ components:
     Voucher.find:
       type: object
       properties:
-        _id:
-          type: string
-          description: 'ID do voucher'
-        userId:
-          type: string
-          description: 'ID do usuário que possui esse voucher'
+        filters:
+          type: object
+          description: 'Filtro para busca dos vouchers'
+    Voucher.find-by-status:
+      type: object
+      properties:
+        filters:
+          type: object
+          description: 'Filtro para busca dos vouchers'
+          properties:
+            _id:
+              type: string
+            userId:
+              type: string
+        options:
+          type: object
+    Voucher.generate:
+      type: object
+      properties:
+        businessId:
+          type: object
         benefitId:
           type: string
-          description: 'ID do beneficio que esse voucher pertence'
-        businessId:
-          type: string
-          description: 'ID do parceiro que oferece o beneficio'
         branchId:
           type: string
-          description: 'ID da unidade de uso do benefício'
-        qrcode:
-          type: string
-          description: 'Código do voucher'
         shopValue:
-          type: number
-          format: float
-          description: 'depreciada'
-        rate:
           type: integer
-          description: 'Avaliação do usuário'
-        status:
-          type: string
-          description: >-
-            Um de: 
-            tovalidate: voucher criado, mas não usado, 
-            pending: voucher validado por um parceiro, mas ainda não avaliado
-            pelo cliente, 
-            used: voucher validado e avaliado pelo cliente
-        createdAt:
-          type: string
-          description: date-time
-        updatedAt:
-          type: string
-          description: date-time
     Voucher.create:
       type: object
       properties:
