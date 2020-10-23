@@ -173,7 +173,7 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/Benefit.find'
   
-  /category/v1/find/getAll:
+  /category/v1/find:
     post:
       tags:
         - category
@@ -186,11 +186,11 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Benefit.response'
+                $ref: '#/components/schemas/Category.response'
         '400':
           description: Invalid Operation
       requestBody:
-          $ref: '#/components/requestBodies/Category.find-getAll'
+          $ref: '#/components/requestBodies/Category.find'
   
   /user-vip/v1/find/one:
     post:
@@ -210,6 +210,24 @@ paths:
           description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/UserVIP.find-user-vip'
+  
+  /faq/v1/find:
+    post:
+      tags:
+        - faq
+      description: 'Busca as perguntas/respostas do FAQ do site do Clube'
+      operationId: findFaq
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Faq.response'
+        '400':
+          description: Invalid input/id/etc (todo)
+      requestBody:
+        $ref: '#/components/requestBodies/Faq.find'
   
 externalDocs:
   description: Documentação auxiliar (Google docs)
@@ -253,11 +271,11 @@ components:
                     Todas as propriedades de filters são opcionais'
       required: true
     
-    Category.find-getAll:
+    Category.find:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Category.find-getAll'
+            $ref: '#/components/schemas/Category.find'
       description: Objeto body com opções para buscar todas as categorias
       required: true    
     
@@ -268,6 +286,14 @@ components:
             $ref: '#/components/schemas/UserVIP.find-user-vip'
       description: Objeto body com opções para buscar sócio beneficiado por e-mail
       required: true 
+    
+    Faq.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Faq.find'
+      description: 'Objeto body para filtrar e/ou ordenar a busca das perguntas e respostas (faq) do site do Clube<br/>**objeto {} no body do request é obrigatório**'
+      required: true
     
   schemas:
   
@@ -382,9 +408,6 @@ components:
                 type: string
                 example: 'branches'
             
-          
-          
-          
     Voucher.find:
       type: object
       properties:
@@ -735,55 +758,63 @@ components:
           items:
             type: string
     
-    Category.find-getAll:
+    Category.find:
       type: object
       properties:
         filters:
           type: object
           properties:
+            name:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'categorianome'
+                $options:
+                  type: string
+                  example: 'i'  
             status:
               type: boolean
               example: true    
-    Category.find:
-      type: object
-      properties:
-        status:
-          type: boolean
-          description: 'Categoria ativa ou não'
-        createdAt:
-          type: string
-          description: date-time
-        updatedAt:
-          type: string
-          description: date-time
-        _id:
-          type: string
-        name:
-          type: string
-        showMenu:
-          type: boolean
-          description: 'Se a categoria aparece no menu do website'
-        showApp:
-          type: boolean
-          description: 'Se a categoria aparece no menu do app'
-        weight:
-          type: integer
-          description: 'Ordem que as categorias são organizadas, menor aparece antes'
-        weightByDate:
-          type: boolean
-          description: 'Depreciada'
-        parentId:
-          type: string
-          description: 'ID da categoria pai, se existir'
-        iconAppUrl:
-          type: string
-          description: 'Identificador do imagem do ícone usado no app'
-        backgroundAppUrl:
-          type: string
-          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
-        iconWebsiteUrl:
-          type: string
-          description: 'Identificador do imagem do ícone usado no website'
+        aggregates:
+          type: array
+          items:
+            type: object
+            properties:
+              lookup:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    example: 'category'
+                  field:
+                    type: string
+                    example: 'parentId'
+                  match:
+                    type: string
+                    example: '_id'
+                  result:
+                    type: string
+                    example: 'parentItem'
+                  op:
+                    type: string
+                    example: '$eq'
+        options:
+          type: object
+          description: 'Filtrar categoria'
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
     Category.response:
       type: object
       required:
@@ -822,16 +853,35 @@ components:
         parentId:
           type: string
           description: 'ID da categoria pai, se existir'
-        iconAppUrl:
-          type: string
-          description: 'Identificador do imagem do ícone usado no app'
-        backgroundAppUrl:
-          type: string
-          description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
-        iconWebsiteUrl:
-          type: string
-          description: 'Identificador do imagem do ícone usado no website'
-    
+        parentItem:
+          type: array
+          items:
+            type: object
+            properties:
+              _id:
+                type: string
+              name:
+                type: string
+              weight:
+                type: integer
+              showMenu:
+                type: boolean
+              showApp:
+                type: boolean
+              weightByDate:
+                type: boolean
+              status:
+                type: boolean
+              iconAppUrl:
+                type: string
+                description: 'Identificador do imagem do ícone usado no app'
+              backgroundAppUrl:
+                type: string
+                description: 'Identificador do imagem do fundo da tela de seleção de categoria usado no app'
+              iconWebsiteUrl:
+                type: string
+                description: 'Identificador do imagem do ícone usado no website'
+
     UserVIP.find-user-vip:
       type: object
       properties:
@@ -893,3 +943,39 @@ components:
           type: string
         updatedAt:
           type: string
+    
+    Faq.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            status:
+              type: boolean
+        options:
+          type: object
+          properties:
+            sort:
+              type: object
+              properties:
+                weight:
+                  type: integer
+                  example: 1
+    Faq.response:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID do objeto'
+        title:
+          type: string
+          description: 'A pergunta do FAQ'
+        description:
+          type: string
+          description: 'A resposta para a pergunta'
+        weight:
+          type: integer
+          description: 'Valor numerico para ordenação de cada pergunta/resposta'
+        status:
+          type: boolean
+          description: 'Se esta pergunta/resposta está ativa ou não'
