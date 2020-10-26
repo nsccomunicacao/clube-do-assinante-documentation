@@ -111,7 +111,7 @@ paths:
         '400':
           description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/Voucher.find'
+        $ref: '#/components/requestBodies/Voucher.getlist'
   
   /branch/v1/find:
     post:
@@ -293,6 +293,13 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Voucher.find'
+      description: objeto body com options para a busca
+      required: true
+    Voucher.getlist:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Voucher.getlist'
       description: objeto body com options para a busca
       required: true
     
@@ -481,121 +488,51 @@ components:
     Voucher.find:
       type: object
       properties:
-        _id:
-          type: string
-          description: 'ID do voucher'
-        userId:
-          type: string
-          description: 'ID do usuário que possui esse voucher'
-        benefitId:
-          type: string
-          description: 'ID do beneficio que esse voucher pertence'
-        businessId:
-          type: string
-          description: 'ID do parceiro que oferece o beneficio'
-        branchId:
-          type: string
-          description: 'ID da unidade de uso do benefício'
-        qrcode:
-          type: string
-          description: 'Código do voucher'
-        shopValue:
-          type: number
-          format: float
-          description: 'depreciada'
-        rate:
-          type: integer
-          description: 'Avaliação do usuário'
-        status:
-          type: string
-          description: >-
-            Um de: 
-            tovalidate: voucher criado, mas não usado, 
-            pending: voucher validado por um parceiro, mas ainda não avaliado
-            pelo cliente, 
-            used: voucher validado e avaliado pelo cliente
-        createdAt:
-          type: string
-          description: date-time
-        updatedAt:
-          type: string
-          description: date-time
-    Voucher.create:
-      type: object
-      properties:
-        userId:
-          type: string
-          description: 'ID do usuário que possui esse voucher'
-        benefitId:
-          type: string
-          description: 'ID do beneficio que esse voucher pertence'
-        businessId:
-          type: string
-          description: 'ID do parceiro que oferece o beneficio'
-        branchId:
-          type: string
-          description: 'ID da unidade de uso do benefício'
-        qrcode:
-          type: string
-          description: 'Código do voucher'
-        shopValue:
-          type: number
-          format: float
-          description: 'depreciada'
-        rate:
-          type: integer
-          description: 'Avaliação do usuário'
-        status:
-          type: string
-          description: >-
-            Um de: 
-            tovalidate: voucher criado, mas não usado, 
-            pending: voucher validado por um parceiro, mas ainda não avaliado
-            pelo cliente, 
-            used: voucher validado e avaliado pelo cliente
-    Voucher.update:
-      type: object
-      properties:
-        _id:
-          type: string
-          description: 'ID do voucher'
-        userId:
-          type: string
-          description: 'ID do usuário que possui esse voucher'
-        benefitId:
-          type: string
-          description: 'ID do beneficio que esse voucher pertence'
-        businessId:
-          type: string
-          description: 'ID do parceiro que oferece o beneficio'
-        branchId:
-          type: string
-          description: 'ID da unidade de uso do benefício'
-        qrcode:
-          type: string
-          description: 'Código do voucher'
-        shopValue:
-          type: number
-          format: float
-          description: 'depreciada'
-        rate:
-          type: integer
-          description: 'Avaliação do usuário'
-        status:
-          type: string
-          description: >-
-            Um de: 
-            tovalidate: voucher criado, mas não usado, 
-            pending: voucher validado por um parceiro, mas ainda não avaliado
-            pelo cliente, 
-            used: voucher validado e avaliado pelo cliente
-    Voucher.delete:
-      type: object
-      properties:
-        _id:
-          type: string
-          required:
-            - _id
+        filters:
+          type: object
+          properties:
+            createdAt:
+              type: object
+              properties:
+                gte:
+                  type: string
+                  example: '2020-10-11T03:00:00.000Z'
+                lte:
+                  type: string
+                  example: '2020-10-18T02:59:59.999Z'      
+        aggregates:
+          type: array
+          items:
+            type: object
+            properties:
+              group:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    example: '$status'
+                  count:
+                    type: object
+                    properties:
+                      $sum:
+                        type: integer
+                        example: 1
+              $sort:
+                type: object
+                properties:
+                  count:
+                    type: integer
+                    example: 1
+        options:
+          type: object
+          description: 'Filtrar categoria'
+          properties:
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
     Voucher.response:
       type: object
       properties:
@@ -635,6 +572,20 @@ components:
         updatedAt:
           type: string
           description: date-time
+    Voucher.getlist:
+      type: object
+      properties:
+        filters:
+          type: object
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
     
     Branch.find:
       type: object
