@@ -54,6 +54,8 @@ paths:
     
   /business/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - business
       summary: Busca por benefícios
@@ -73,6 +75,8 @@ paths:
   
   /voucher/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - voucher
       summary: ''
@@ -91,6 +95,8 @@ paths:
         $ref: '#/components/requestBodies/Voucher.find'
   /voucher/v1/getList:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - voucher
       description: 'Busca um voucher'
@@ -106,75 +112,11 @@ paths:
           description: Invalid Operation
       requestBody:
         $ref: '#/components/requestBodies/Voucher.find'
-  /voucher/v1/delete:
-    post:
-      tags:
-        - voucher
-      description: 'Deleta um voucher'
-      operationId: removeVoucher
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher.find'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Voucher.response'
-        description: objeto body com ID do voucher a ser removido
-        required: true
-  /voucher/v1/generateVoucher:
-    post:
-      tags:
-        - voucher
-      description: 'Cria um voucher'
-      operationId: generateVoucher
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Voucher.create'
-        description: objeto body com dados para criar um novo voucher
-        required: true
-  /voucher/v1/update:
-    post:
-      tags:
-        - voucher
-      description: 'Atualiza um voucher, por exemplo para que o usuário vote(dar nota) em um voucher'
-      operationId: updateVoucher
-      responses:
-        '200':
-          description: Successful Operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Voucher.response'
-        '400':
-          description: Invalid Operation
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Voucher.update'
-        description: objeto body dados para atualizar um voucher
-        required: true
   
   /branch/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - branch
       summary: Busca por branches
@@ -194,6 +136,8 @@ paths:
   
   /benefit/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - benefit
       summary: Busca por benefícios
@@ -213,6 +157,8 @@ paths:
   
   /category/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - category
       summary: Buscar Categorias
@@ -232,6 +178,8 @@ paths:
   
   /user-vip/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - user-vip
       summary: Buscar Sócio Beneficiado
@@ -251,6 +199,8 @@ paths:
   
   /banner/v1/find:
     post:
+      security:
+          - bearerAuth: []
       tags:
         - banner
       summary: Buscar Banners
