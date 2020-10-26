@@ -12,15 +12,15 @@ info:
     url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
 tags:
   - name: access
-    description: validação de acesso (revisar)
+    description: validação de acesso
   - name: business
-    description: Parceiros (revisar)
+    description: Parceiros
   - name: benefit
     description: Benefícios dos parceiros do Clube
   - name: voucher
     description: Consumo e utilização de vouchers
   - name: branch
-    description: Locais físicos ou online onde se pode utilizar um voucher (revisar)
+    description: Locais físicos ou online onde se pode utilizar um voucher
   - name: category
     description: Consumo de categorias
   - name: user-vip
@@ -33,6 +33,25 @@ tags:
     description: Perguntas e respostas sobre o Clube do Assinante
 paths:
 
+  /access/v1/verify:
+      post:
+        tags:
+          - access
+        summary: Consulta de permissẽs de acesso
+        description: 'Buscar as permissões de acesso desta sessão'
+        operationId: accessVerify
+        responses:
+          '200':
+            description: Successful Operation
+            content:
+              application/json:
+                schema:
+                  $ref: '#/components/schemas/Access'
+          '400':
+            description: Invalid Operation
+        requestBody:
+          $ref: '#/components/requestBodies/Access'
+    
   /business/v1/find:
     post:
       tags:
@@ -154,6 +173,25 @@ paths:
         description: objeto body dados para atualizar um voucher
         required: true
   
+  /branch/v1/find:
+    post:
+      tags:
+        - branch
+      summary: Busca por branches
+      description: 'Buscar benefícios podendo utilizar vários filtros'
+      operationId: findBranch
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Branch.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Branch.find'
+  
   /benefit/v1/find:
     post:
       tags:
@@ -192,12 +230,12 @@ paths:
       requestBody:
           $ref: '#/components/requestBodies/Category.find'
   
-  /user-vip/v1/find/one:
+  /user-vip/v1/find:
     post:
       tags:
         - user-vip
       summary: Buscar Sócio Beneficiado
-      description: 'Buscar sócio beneficiado baseado no e-mail'
+      description: 'Buscar sócio beneficiado pelo nome ou e-mail'
       operationId: userVipFindOne
       responses:
         '200':
@@ -209,7 +247,45 @@ paths:
         '400':
           description: Invalid Operation
       requestBody:
-        $ref: '#/components/requestBodies/UserVIP.find-user-vip'
+        $ref: '#/components/requestBodies/UserVIP.find'
+  
+  /banner/v1/find:
+    post:
+      tags:
+        - banner
+      summary: Buscar Banners
+      description: 'Buscar os banners da home do site'
+      operationId: bannerFind
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Banner.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Banner.find'
+  
+  /content/v1/find:
+    post:
+      tags:
+        - content
+      summary: Conteúdo do site
+      description: 'Busca pelo conteúdo do site'
+      operationId: contentFind
+      responses:
+        '200':
+          description: Successful Operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Content.response'
+        '400':
+          description: Invalid Operation
+      requestBody:
+        $ref: '#/components/requestBodies/Content.find'
   
   /faq/v1/find:
     post:
@@ -246,6 +322,14 @@ components:
       bearerFormat: JWT 
   requestBodies:
   
+    Access:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Access'
+      description: A lista de acessos permitidos nessa sessão
+      required: true
+  
     Business.find:
       content:
         application/json:
@@ -260,6 +344,14 @@ components:
           schema:
             $ref: '#/components/schemas/Voucher.find'
       description: objeto body com options para a busca
+      required: true
+    
+    Branch.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Branch.find'
+      description: 'Objeto body com filtros para busca de branches'
       required: true
     
     Benefit.find:
@@ -279,12 +371,28 @@ components:
       description: Objeto body com opções para buscar todas as categorias
       required: true    
     
-    UserVIP.find-user-vip:
+    UserVIP.find:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserVIP.find-user-vip'
-      description: Objeto body com opções para buscar sócio beneficiado por e-mail
+            $ref: '#/components/schemas/UserVIP.find'
+      description: Objeto body com opções para buscar sócio beneficiado
+      required: true 
+    
+    Banner.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Banner.find'
+      description: Objeto body com opções para buscar dos banners do site
+      required: true    
+    
+    Content.find:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Content.find'
+      description: Objeto body com opções para buscar o conteúdo do site
       required: true 
     
     Faq.find:
@@ -297,6 +405,18 @@ components:
     
   schemas:
   
+    Access:
+      type: object
+      properties:
+        list:
+          type: array
+          items:
+            type: object
+            properties:
+              slug:
+                type: string
+                example: 'banner-view'
+        
     Business.find:
       type: object
       properties:
@@ -407,7 +527,7 @@ components:
               field:
                 type: string
                 example: 'branches'
-            
+    
     Voucher.find:
       type: object
       properties:
@@ -566,6 +686,75 @@ components:
           type: string
           description: date-time
     
+    Branch.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            name:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'nome'
+                $options:
+                  type: string
+                  example: 'i'
+            type:
+              type: string
+              example: 'fisico'
+            stage:
+              type: string
+              example: 'onapproval'
+            state:
+              type: integer
+              example: 12
+            city:
+              type: integer
+              example: 1200401
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
+    Branch.response:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID da unidade (branch)'
+          example: '5f76054013cd4000086a893f'
+        name:
+          type: string
+          description: 'Nome da unidade'
+          example: 'Mobly - Loja Online'
+        stage:
+          type: string
+          description: 'Situação do cadastro dessa unidade no sistema'
+          example: 'approved'
+        type:
+          type: string
+          description: 'Tipo de unidade, fisica ou virtual'
+          example: 'virtual'
+        status:
+          type: boolean
+          description: 'Se esta unidade está ativa ou não'
+        site:
+          type: string
+          description: 'O site associado à essa unidade (branch)'
+          example: 'http://bit.ly/MoblyClubeNSC'
+        
     Benefit.find:
       type: object
       properties:
@@ -882,39 +1071,48 @@ components:
                 type: string
                 description: 'Identificador do imagem do ícone usado no website'
 
-    UserVIP.find-user-vip:
+    UserVIP.find:
       type: object
       properties:
         filters:
           type: object
           properties:
+            name:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'nome'
+                $options:
+                  type: string
+                  example: 'i'
             email:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'teste@teste.com'
+                $options:
+                  type: string
+                  example: 'i'
+            perfil:
               type: string
-              description: 'e-mail'
-              example: labnscga@gmail.com      
-    UserVIP.find:
-      type: object
-      properties:
-        _id:
-          type: string
-        cpf:
-          type: string
-        name:
-          type: string
-        email:
-          type: string
-        status:
-          type: string
-        expiracy:
-          type: string
-          description: 'Data que o usuário não consegue mais utilizar o sistema. Se não possuir valor não expira'
-        perfil:
-          type: string
-          description: 'Tipo do perfil: FUNCIONARIO, VITALICIO ou ARBS'
-        createdAt:
-          type: string
-        updatedAt:
-          type: string
+              example: 'ARBS'
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
     UserVIP.response:
       type: object
       required:
@@ -943,6 +1141,162 @@ components:
           type: string
         updatedAt:
           type: string
+    
+    Banner.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            benefitId:
+              type: object
+              properties:
+                exists:
+                  type: boolean
+                  example: true  
+        aggregates:
+          type: array
+          items:
+            type: object
+            properties:
+              lookup:
+                type: object
+                properties:
+                  from:
+                    type: string
+                    example: 'benefit'
+                  field:
+                    type: string
+                    example: 'benefitId'
+                  match:
+                    type: string
+                    example: '_id'
+                  result:
+                    type: string
+                    example: 'benefit'
+                  op:
+                    type: string
+                    example: '$eq'
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
+    Banner.response:
+      type: object
+      properties:
+        _id:
+          type: string
+        type:
+          type: string
+          description: 'String representando o tipo de banner (exemplo: NO_BENEFIT)'
+        weight:
+          type: integer
+          description: 'Ordem que os banners são mostrados, 1: maior da esquerda, 2: topo na direita, 3: embaixo na direita'
+        benefitId:
+          type: string
+          description: 'O id do beneficio atrelado a esse banner'
+        title:
+          type: string
+          description: 'O titulo que aparece dentro do banner'
+        description:
+          type: integer
+          description: 'Subtitulo do banner, só é mostrado no maior banner, que fica no lado esquerdo na home'
+        redirectUrl:
+          type: string
+          description: 'A URL que será carregada ao clicar no banner'
+        imageUrl:
+          type: string
+          description: 'O nome da imagem que será carregada por esse banner (exemplo: f9c1464f0faf9314c0ac16bce1d9d2d0-full.jpg)'
+        createdBy:
+          type: string
+          description: 'O ID de quem criou esse banner'
+        updatedAt:
+          type: string
+          description: 'A data em que esse banner foi atualizado pela última vez'
+        benefit:
+          type: string
+          description: 'Array com a list de benefícios atrelados a esse banner'
+    
+    Content.find:
+      type: object
+      properties:
+        filters:
+          type: object
+          properties:
+            name:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'nome_descritivo'
+                $options:
+                  type: string
+                  example: 'i'
+            body:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'conteudo'
+                $options:
+                  type: string
+                  example: 'i'
+            identifier:
+              type: object
+              properties:
+                $regex:
+                  type: string
+                  example: 'identificador'
+                $options:
+                  type: string
+                  example: 'i'
+        options:
+          type: object
+          properties:
+            skip:
+              type: integer
+              example: 0
+            limit:
+              type: integer
+              example: 5
+            sort:
+              type: object
+              properties:
+                _id:
+                  type: integer
+                  example: -1
+    Content.response:
+      type: object
+      properties:
+        _id:
+          type: string
+          description: 'ID desse objeto'
+        body:
+          type: string
+          description: 'O conteúdo de fato que será mostrado para o usuário (exemplo texto de um botão ou nota de rodaé)'
+        component:
+          type: string
+          description: 'O nome da seção do site que tem o componente que carrega o conteúdo (exemplo footer, about)'
+        identifier:
+          type: string
+          description: 'Identificador do componente que irá carregar esse conteúdo (exemplo firstCardTitle, firstCardParagraph1)'
+        name:
+          type: string
+          description: 'Descrição user-friendly do componente + seção associada a esse conteúdo (exemplo Primerio card parágrafo 1)'
+        updatedAt:
+          type: string
+          description: 'Data e hora da ultima atualização dos dados'
     
     Faq.find:
       type: object
