@@ -1,0 +1,955 @@
+{
+	"info": {
+		"_postman_id": "0a1ec23d-672e-4e7f-aa5d-3d0f712a5044",
+		"name": "(Site) Clube NSC API Docs",
+		"description": "Documentação de API do Clube NSC [link](https://docs.google.com/document/d/1lLOp2-4-ktxmyN8QbNH1g7swISmTdg7-mFgy05_pXiE) .`keyword` .\n\nContact Support:\n Email: kleyson.sousa@somosnsc.com.br",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "benefit/v1/find",
+			"item": [
+				{
+					"name": "get Benefits Event List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {},\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 7,\n    \"orderby\": {\n      \"events.0\": 1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/find/geteventlist",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"find",
+								"geteventlist"
+							]
+						},
+						"description": "Busca por benefits "
+					},
+					"response": [
+						{
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/geteventlist",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"geteventlist"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/geteventlist",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"geteventlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"status\": true,\n \"createdAt\": \"consectetur nulla\",\n \"updatedAt\": \"Ut Lorem\",\n \"_id\": \"minim fugiat\",\n \"businessId\": \"irure cillum labore proident veniam\",\n \"type\": \"sit Lorem sint\",\n \"flagPromotion\": true,\n \"flagSpotlight\": true,\n \"flagHidden\": true,\n \"title\": \"id Ut dolore tempor\",\n \"slug\": \"Duis voluptate anim proident deserunt\",\n \"description\": \"consectetur\",\n \"resume\": \"irure do voluptate dolore\",\n \"videoUrl\": \"do veniam\",\n \"discountType\": \"minim mollit id aliqua\",\n \"discount\": \"voluptate sed qui mollit in\",\n \"eventDescription\": \"aute\",\n \"siteUrl\": \"in commodo\",\n \"tinySiteUrl\": \"aliqua incididunt qui\",\n \"footerNote\": \"tempor mollit anim\",\n \"shelfLifeStart\": \"ex do ullamco\",\n \"shelfLifeEnd\": \"fugiat quis enim\",\n \"redemptionType\": \"culpa reprehenderit fugiat exercitation\",\n \"voucherCode\": \"mollit occaecat minim in\",\n \"preGeneratedCode\": \"ipsum anim\",\n \"voucherAmount\": \"irure sunt\",\n \"limitVoucherByUser\": \"Ut s\",\n \"voucherUserLimit\": \"ut Ut ad anim\",\n \"voucherShelfLife\": \"do amet fugiat\",\n \"benefitImage\": \"ex laborum\",\n \"bannerUrl\": \"sed ut deserunt\",\n \"howToUseVoucher\": \"magna occaecat eu laboris\",\n \"voucherPeriodLimit\": \"amet\",\n \"events\": \"dolor id ex\",\n \"categories\": [\n  \"dolore\",\n  \"ad proident\"\n ]\n}"
+						}
+					]
+				},
+				{
+					"name": "get Benefits List",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"flagSpotlight\": true\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 16,\n    \"orderby\": {\n      \"updatedAt\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/find/getlist",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"find",
+								"getlist"
+							]
+						},
+						"description": "Busca por benefits "
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/getlist",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"getlist"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"status\": false,\n \"createdAt\": \"labore \",\n \"updatedAt\": \"Lorem velit laboris\",\n \"_id\": \"sint reprehenderit et do\",\n \"businessId\": \"in nostrud mollit sed\",\n \"type\": \"eu adipisicing Excepteur commodo\",\n \"flagPromotion\": false,\n \"flagSpotlight\": true,\n \"flagHidden\": true,\n \"title\": \"cillum mollit aliquip\",\n \"slug\": \"eiusmod in\",\n \"description\": \"irure\",\n \"resume\": \"aliquip consectetur\",\n \"videoUrl\": \"ullamco fug\",\n \"discountType\": \"id veniam\",\n \"discount\": \"Duis aliquip laboris\",\n \"eventDescription\": \"cillum sunt in tempor\",\n \"siteUrl\": \"aliqua in\",\n \"tinySiteUrl\": \"in in anim quis deserunt\",\n \"footerNote\": \"do\",\n \"shelfLifeStart\": \"Lorem sit labore\",\n \"shelfLifeEnd\": \"non \",\n \"redemptionType\": \"ea nulla pariatur commodo\",\n \"voucherCode\": \"enim Excepteur labore veniam Lorem\",\n \"preGeneratedCode\": \"incididunt occaecat eiusmod\",\n \"voucherAmount\": \"ut eu\",\n \"limitVoucherByUser\": \"culpa elit\",\n \"voucherUserLimit\": \"quis commodo Lorem magna\",\n \"voucherShelfLife\": \"aute ut commodo officia\",\n \"benefitImage\": \"dolor cillum\",\n \"bannerUrl\": \"ullamco laboris reprehenderit ad\",\n \"howToUseVoucher\": \"offici\",\n \"voucherPeriodLimit\": \"labore ut anim\",\n \"events\": \"v\",\n \"categories\": [\n  \"Excepteur in amet labore\",\n  \"ea non nostrud\"\n ]\n}"
+						},
+						{
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/getlist",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"getlist"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "find Benefits By Id",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"slug\": \"cinemulti\"\n  },\n  \"options\": {}\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/find/by-id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"find",
+								"by-id"
+							]
+						},
+						"description": "Busca um benefício específico baseado em seu identificador (slug)<br/> Esse endpoint é usado quando se clica em um benefit no site para pegar todos seus detalhes"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/by-id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"by-id"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"status\": true,\n \"createdAt\": \"consectetur nulla\",\n \"updatedAt\": \"Ut Lorem\",\n \"_id\": \"minim fugiat\",\n \"businessId\": \"irure cillum labore proident veniam\",\n \"type\": \"sit Lorem sint\",\n \"flagPromotion\": true,\n \"flagSpotlight\": true,\n \"flagHidden\": true,\n \"title\": \"id Ut dolore tempor\",\n \"slug\": \"Duis voluptate anim proident deserunt\",\n \"description\": \"consectetur\",\n \"resume\": \"irure do voluptate dolore\",\n \"videoUrl\": \"do veniam\",\n \"discountType\": \"minim mollit id aliqua\",\n \"discount\": \"voluptate sed qui mollit in\",\n \"eventDescription\": \"aute\",\n \"siteUrl\": \"in commodo\",\n \"tinySiteUrl\": \"aliqua incididunt qui\",\n \"footerNote\": \"tempor mollit anim\",\n \"shelfLifeStart\": \"ex do ullamco\",\n \"shelfLifeEnd\": \"fugiat quis enim\",\n \"redemptionType\": \"culpa reprehenderit fugiat exercitation\",\n \"voucherCode\": \"mollit occaecat minim in\",\n \"preGeneratedCode\": \"ipsum anim\",\n \"voucherAmount\": \"irure sunt\",\n \"limitVoucherByUser\": \"Ut s\",\n \"voucherUserLimit\": \"ut Ut ad anim\",\n \"voucherShelfLife\": \"do amet fugiat\",\n \"benefitImage\": \"ex laborum\",\n \"bannerUrl\": \"sed ut deserunt\",\n \"howToUseVoucher\": \"magna occaecat eu laboris\",\n \"voucherPeriodLimit\": \"amet\",\n \"events\": \"dolor id ex\",\n \"categories\": [\n  \"dolore\",\n  \"ad proident\"\n ]\n}"
+						},
+						{
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/by-id",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"by-id"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "find Benefits By Term With Branches",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"term\": \"pet\",\n    \"partial\": true\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 16\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/find/by-term-with-branches",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"find",
+								"by-term-with-branches"
+							]
+						},
+						"description": "Busca por benefits associados com uma palavra chave<br/> Esse endpoint é usado para buscar por benefícios no site usando a barra de pesquisa"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/by-term-with-branches",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"by-term-with-branches"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"status\": false,\n \"createdAt\": \"labore \",\n \"updatedAt\": \"Lorem velit laboris\",\n \"_id\": \"sint reprehenderit et do\",\n \"businessId\": \"in nostrud mollit sed\",\n \"type\": \"eu adipisicing Excepteur commodo\",\n \"flagPromotion\": false,\n \"flagSpotlight\": true,\n \"flagHidden\": true,\n \"title\": \"cillum mollit aliquip\",\n \"slug\": \"eiusmod in\",\n \"description\": \"irure\",\n \"resume\": \"aliquip consectetur\",\n \"videoUrl\": \"ullamco fug\",\n \"discountType\": \"id veniam\",\n \"discount\": \"Duis aliquip laboris\",\n \"eventDescription\": \"cillum sunt in tempor\",\n \"siteUrl\": \"aliqua in\",\n \"tinySiteUrl\": \"in in anim quis deserunt\",\n \"footerNote\": \"do\",\n \"shelfLifeStart\": \"Lorem sit labore\",\n \"shelfLifeEnd\": \"non \",\n \"redemptionType\": \"ea nulla pariatur commodo\",\n \"voucherCode\": \"enim Excepteur labore veniam Lorem\",\n \"preGeneratedCode\": \"incididunt occaecat eiusmod\",\n \"voucherAmount\": \"ut eu\",\n \"limitVoucherByUser\": \"culpa elit\",\n \"voucherUserLimit\": \"quis commodo Lorem magna\",\n \"voucherShelfLife\": \"aute ut commodo officia\",\n \"benefitImage\": \"dolor cillum\",\n \"bannerUrl\": \"ullamco laboris reprehenderit ad\",\n \"howToUseVoucher\": \"offici\",\n \"voucherPeriodLimit\": \"labore ut anim\",\n \"events\": \"v\",\n \"categories\": [\n  \"Excepteur in amet labore\",\n  \"ea non nostrud\"\n ]\n}"
+						},
+						{
+							"name": "Bad request",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find/by-term-with-branches",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find",
+										"by-term-with-branches"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "find Content",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"options\": {\n    \"sort\": {\n      \"id\": 1\n    }\n  }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/content/v1/find",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"content",
+						"v1",
+						"find"
+					]
+				},
+				"description": "Busca o conteudo de texto de algumas partes do site como, texto de rodapé, texto de botões etc"
+			},
+			"response": [
+				{
+					"name": "Successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/content/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"content",
+								"v1",
+								"find"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"_id\": \"magna elit\",\n \"body\": \"aliqua\",\n \"component\": \"mollit ut cillum consectetur\",\n \"identifier\": \"sunt ipsum et\",\n \"name\": \"in in\",\n \"updatedAt\": \"se\"\n}"
+				},
+				{
+					"name": "Bad request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/content/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"content",
+								"v1",
+								"find"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "get All Categories",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"filters\": {\n    \"showMenu\": true,\n    \"status\": true\n  }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/category/v1/find/getAll",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"category",
+						"v1",
+						"find",
+						"getAll"
+					]
+				},
+				"description": "Busca as categorias de beneficios"
+			},
+			"response": [
+				{
+					"name": "Bad request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/v1/find/getAll",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"v1",
+								"find",
+								"getAll"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/category/v1/find/getAll",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"v1",
+								"find",
+								"getAll"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"_id\": \"labore Lorem ut ad\",\n \"name\": \"cillum laborum dolore occaecat\",\n \"status\": true,\n \"showApp\": true,\n \"showMenu\": false,\n \"weight\": -92160566,\n \"weightByDate\": false,\n \"parentId\": \"dolor\",\n \"backgroundAppUrl\": \"elit est deserunt\",\n \"iconAppUrl\": \"occaecat dolore elit\",\n \"iconWebsiteUrl\": \"dolor incididunt in\"\n}"
+				}
+			]
+		},
+		{
+			"name": "get Banners List",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "Schema\n{\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 3,\n    \"orderBy\": {\n      \"weight\": 1\n    }\n  }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/banner/v1/find/getlist",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"banner",
+						"v1",
+						"find",
+						"getlist"
+					]
+				},
+				"description": "Busca os banners da home do site"
+			},
+			"response": [
+				{
+					"name": "successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/banner/v1/find/getlist",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"banner",
+								"v1",
+								"find",
+								"getlist"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"_id\": \"reprehenderit in commodo\",\n \"type\": \"est commodo\",\n \"weight\": -68802957,\n \"benefitId\": \"cillum ad aute fugiat\",\n \"title\": \"aute dolor\",\n \"description\": 71784290,\n \"redirectUrl\": \"amet ea in adipisicing\",\n \"imageUrl\": \"tempor anim\",\n \"createdBy\": \"dolor veniam amet\",\n \"updatedAt\": \"eiusmod qui\",\n \"benefit\": \"mollit\"\n}"
+				},
+				{
+					"name": "Bad request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/banner/v1/find/getlist",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"banner",
+								"v1",
+								"find",
+								"getlist"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "create Business Without Token",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"alias\": \"novo business alias\",\n  \"name\": \"novo business name\",\n  \"cnpj\": \"11122233344\",\n  \"zipcode\": \"novo business zip\",\n  \"address\": \"novo business address\",\n  \"district\": \"novo business district\",\n  \"number\": 123,\n  \"complement\": \"novo business complement\",\n  \"state\": 1,\n  \"city\": 1,\n  \"phone\": \"48988887777\",\n  \"contact\": \"48988887777\",\n  \"email\": \"novo@business.com \",\n  \"site\": \"novobusiness.com \",\n  \"status\": true\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/business/v1/create/without-token",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"business",
+						"v1",
+						"create",
+						"without-token"
+					]
+				},
+				"description": "Cria um novo business (parceiro) a partir do formulario na página \"seja um parceiro\""
+			},
+			"response": [
+				{
+					"name": "Bad request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/business/v1/create/without-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"business",
+								"v1",
+								"create",
+								"without-token"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/business/v1/create/without-token",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"business",
+								"v1",
+								"create",
+								"without-token"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"BS21\",\n \"name\": \"BusinessCreateResult\",\n \"result\": {}\n}"
+				}
+			]
+		},
+		{
+			"name": "find Faq",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"filters\": {\n    \"status\": true\n  },\n  \"options\": {\n    \"sort\": {\n      \"weight\": 1\n    }\n  }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/faq/v1/find",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"faq",
+						"v1",
+						"find"
+					]
+				},
+				"description": "Busca as perguntas/respostas do FAQ do site"
+			},
+			"response": [
+				{
+					"name": "Invalid input/id/etc (todo)",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/faq/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"faq",
+								"v1",
+								"find"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/faq/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"faq",
+								"v1",
+								"find"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"_id\": \"id Excepteur ullamco\",\n \"title\": \"irure\",\n \"description\": \"ut minim\",\n \"weight\": 29154172,\n \"status\": false\n}"
+				}
+			]
+		},
+		{
+			"name": "email Sender",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"to\": \"to@test.com\",\n  \"from\": \"from@test.com\",\n  \"subject\": \"subject test\",\n  \"templateId\": \"templateId 1\",\n  \"substitutionData\": {\n    \"name\": \"email name\",\n    \"title\": \"email title\",\n    \"cpf\": \"00011122233\",\n    \"email\": \"test@test.com\",\n    \"phone\": \"48988887777\",\n    \"subject\": \"email subject\",\n    \"news\": \"news information\",\n    \"message\": \"email message\",\n    \"domainHtml\": \"<p>email domain Html</p>\"\n  }\n}",
+					"options": {
+						"raw": {}
+					}
+				},
+				"url": {
+					"raw": "{{baseUrl}}/sender/v1/email",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"sender",
+						"v1",
+						"email"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Bad request",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sender/v1/email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sender",
+								"v1",
+								"email"
+							]
+						}
+					},
+					"status": "Bad Request",
+					"code": 400,
+					"_postman_previewlanguage": "text",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "text/plain"
+						}
+					],
+					"cookie": [],
+					"body": ""
+				},
+				{
+					"name": "successful operation",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/sender/v1/email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"sender",
+								"v1",
+								"email"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						}
+					],
+					"cookie": [],
+					"body": "{\n \"code\": \"SE21\",\n \"name\": \"EmailSendResult\"\n}"
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"id": "baseUrl",
+			"key": "baseUrl",
+			"value": "https://stg-api.clubensc.com.br",
+			"type": "string"
+		}
+	],
+	"protocolProfileBehavior": {}
+}
