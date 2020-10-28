@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "newman run app-clube.postman_collection.json",
-    "test-site": "newman run site-clube.postman_collection.json"
+    "test-app": "newman run app-clube.postman_collection.json",
+    "test-site": "newman run site-clube.postman_collection.json",
+    "test-backoffice": "newman run backoffice-clube.postman_collection.json"
   },
   "keywords": [],
   "author": "",
