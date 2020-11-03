@@ -1,11 +1,377 @@
 {
 	"info": {
-		"_postman_id": "5c35f74e-2e13-4ea7-995e-2a7823188f6f",
+		"_postman_id": "28b7aac7-acc4-4965-a524-5ac2993bb86a",
 		"name": "BACKOFFICE - Clube NSC API Docs",
 		"description": "Mapeamento dos endpoints utilizados pelo backoffice do Clube NSC.\n\nContact Support:\n Email: kleyson.sousa@somosnsc.com.br",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
+		{
+			"name": "business/v1",
+			"item": [
+				{
+					"name": "Busca por business",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"email\": {\n      \"$regex\": \"teste@teste.com\",\n      \"$options\": \"i\"\n    },\n    \"stage\": \"toapproval\"\n  },\n  \"options\": {\n    \"sort\": {\n      \"_id\": -1\n    },\n    \"limit\": 5,\n    \"skip\": 0\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/business/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"business",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Buscar business podendo utilizar vários filtros"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"sed adipisicing ad\",\n \"name\": \"Duis labore consectetur\",\n \"alias\": \"veniam mollit eiusmod ipsum\",\n \"cnpj\": \"ea aliqua do\",\n \"address\": \"ea\",\n \"number\": \"id\",\n \"district\": \"incididunt adipisicing exercitation\",\n \"complement\": \"velit\",\n \"city\": \"incididunt culpa veniam sint\",\n \"state\": \"proident ea\",\n \"contact\": \"et sunt in\",\n \"email\": \"in\",\n \"site\": \"culpa adipisicing\",\n \"zipcode\": \"sint consequat laborum ex tempor\",\n \"phone\": \"incididunt aute cillum pariatur\",\n \"stage\": \"mollit aute sint\",\n \"status\": false,\n \"branches\": [\n  \"5ef1c58af25942a61a5737d7\",\n  \"5ef1c58af25942a61a5737d7\"\n ],\n \"branchesList\": [\n  {\n   \"from\": \"branch\",\n   \"field\": \"branches\"\n  },\n  {\n   \"from\": \"branch\",\n   \"field\": \"branches\"\n  }\n ]\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Criação de novo parceiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"alias\": \"novo parceiro - razao social\",\n    \"stage\": \"onapproval\",\n    \"name\": \"novo parceiro - nome fantasia\",\n    \"cnpj\": \"99805575000149\",\n    \"zipcode\": \"88030300\",\n    \"address\": \"Rodovia João Paulo\",\n    \"district\": \"João Paulo\",\n    \"number\": 0,\n    \"complement\": \"complemento 222\",\n    \"state\": 42,\n    \"city\": \"4205407\",\n    \"phone\": \"4833333333\",\n    \"contact\": \"novo parceiro - nome responsavel\",\n    \"email\": \"novoparceiro@teste.com\",\n    \"site\": \"www.novoparceiroteste.com\",\n    \"status\": false,\n    \"oldUsers\": [],\n    \"users\": [],\n    \"branches\": []\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/business/v1/create/with-user-branch",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"business",
+								"v1",
+								"create",
+								"with-user-branch"
+							]
+						},
+						"description": "Cria um parceiro, com opção de adicionar a um user ou uma branch existente"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/create/with-user-branch",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"create",
+										"with-user-branch"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/create/with-user-branch",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"create",
+										"with-user-branch"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"sint Excepteur ut sunt\",\n \"name\": \"FaqCreateResult\",\n \"result\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Editar um parceiro",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"alias\": \"editar parceiro - razao social\",\n    \"stage\": \"approved\",\n    \"name\": \"editar  parceiro - nome fantasia\",\n    \"cnpj\": \"99805575000149\",\n    \"zipcode\": \"88030300\",\n    \"address\": \"Rodovia João Paulo\",\n    \"district\": \"João Paulo\",\n    \"number\": 0,\n    \"complement\": \"complemento 222\",\n    \"state\": 42,\n    \"city\": \"4205407\",\n    \"phone\": \"4833333333\",\n    \"contact\": \"novo parceiro - nome responsavel\",\n    \"email\": \"novoparceiro@teste.com\",\n    \"site\": \"www.novoparceiroteste.com\",\n    \"status\": false,\n    \"_id\": \"5f999a91ae9b4b0f67cf653b\",\n    \"branches\": [],\n    \"createdAt\": \"2020-10-28T16:21:37.232Z\",\n    \"updatedAt\": \"2020-10-28T16:21:37.232Z\",\n    \"branchesList\": [],\n    \"usersList\": [],\n    \"oldUsers\": [],\n    \"users\": []\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/business/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"business",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Edição dos dados de um parceiro"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"proident non consequat in i\",\n \"name\": \"BusinessUpdateResult\",\n \"result\": {\n  \"_id\": \"5f999a91ae9b4b0f67cf653b\"\n }\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/business/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"business",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
 		{
 			"name": "voucher/v1",
 			"item": [
@@ -17,7 +383,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
+									"value": "<Bearer Token>",
 									"type": "string"
 								}
 							]
@@ -50,6 +416,44 @@
 						"description": "busca todos os vouchers"
 					},
 					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/voucher/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"voucher",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"userId\": \"pariatur veniam\",\n \"benefitId\": \"Excepteur in id i\",\n \"businessId\": \"in amet\",\n \"branchId\": \"amet\",\n \"qrcode\": \"Lor\",\n \"shopValue\": -95901337.41892983,\n \"rate\": -1902296,\n \"status\": \"qui nisi commodo veniam\",\n \"createdAt\": \"do sit aliquip\",\n \"updatedAt\": \"sit exercitation consectetur\"\n}"
+						},
 						{
 							"name": "Invalid Operation",
 							"originalRequest": {
@@ -87,44 +491,6 @@
 							],
 							"cookie": [],
 							"body": ""
-						},
-						{
-							"name": "Successful Operation",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": {
-											"content": "Added as a part of security scheme: bearer",
-											"type": "text/plain"
-										},
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/voucher/v1/find",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"voucher",
-										"v1",
-										"find"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"userId\": \"minim anim magna cillum\",\n \"benefitId\": \"sit\",\n \"businessId\": \"do\",\n \"branchId\": \"cupidatat sint in\",\n \"qrcode\": \"do elit\",\n \"shopValue\": -38322393.06027798,\n \"rate\": -55739991,\n \"status\": \"laborum\",\n \"createdAt\": \"culpa cupidatat laboris\",\n \"updatedAt\": \"adipisicing laboris dolor magna\"\n}"
 						}
 					]
 				},
@@ -170,44 +536,6 @@
 					},
 					"response": [
 						{
-							"name": "Successful Operation",
-							"originalRequest": {
-								"method": "POST",
-								"header": [
-									{
-										"description": {
-											"content": "Added as a part of security scheme: bearer",
-											"type": "text/plain"
-										},
-										"key": "Authorization",
-										"value": "Bearer <token>"
-									}
-								],
-								"url": {
-									"raw": "{{baseUrl}}/voucher/v1/getList",
-									"host": [
-										"{{baseUrl}}"
-									],
-									"path": [
-										"voucher",
-										"v1",
-										"getList"
-									]
-								}
-							},
-							"status": "OK",
-							"code": 200,
-							"_postman_previewlanguage": "json",
-							"header": [
-								{
-									"key": "Content-Type",
-									"value": "application/json"
-								}
-							],
-							"cookie": [],
-							"body": "{\n \"userId\": \"minim anim magna cillum\",\n \"benefitId\": \"sit\",\n \"businessId\": \"do\",\n \"branchId\": \"cupidatat sint in\",\n \"qrcode\": \"do elit\",\n \"shopValue\": -38322393.06027798,\n \"rate\": -55739991,\n \"status\": \"laborum\",\n \"createdAt\": \"culpa cupidatat laboris\",\n \"updatedAt\": \"adipisicing laboris dolor magna\"\n}"
-						},
-						{
 							"name": "Invalid Operation",
 							"originalRequest": {
 								"method": "POST",
@@ -244,6 +572,2326 @@
 							],
 							"cookie": [],
 							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/voucher/v1/getList",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"voucher",
+										"v1",
+										"getList"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"userId\": \"pariatur veniam\",\n \"benefitId\": \"Excepteur in id i\",\n \"businessId\": \"in amet\",\n \"branchId\": \"amet\",\n \"qrcode\": \"Lor\",\n \"shopValue\": -95901337.41892983,\n \"rate\": -1902296,\n \"status\": \"qui nisi commodo veniam\",\n \"createdAt\": \"do sit aliquip\",\n \"updatedAt\": \"sit exercitation consectetur\"\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "branch/v1",
+			"item": [
+				{
+					"name": "Busca por branches",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"type\": \"fisico\",\n    \"stage\": \"onapproval\",\n    \"state\": 12,\n    \"city\": 1200401\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branch/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branch",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Buscar por branches (unidade) podendo utilizar filtros"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"5f76054013cd4000086a893f\",\n \"name\": \"Mobly - Loja Online\",\n \"stage\": \"approved\",\n \"type\": \"virtual\",\n \"status\": true,\n \"site\": \"http://bit.ly/MoblyClubeNSC\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Criação de unidades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Nova unidade - nome\",\n    \"stage\": \"onapproval\",\n    \"type\": \"virtual\",\n    \"phone\": \"4833333333\",\n    \"status\": true,\n    \"site\": \"www.Novaunidadeteste.com\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branch/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branch",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Cria uma unidade"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U21\",\n \"name\": \"BranchCreateResult\",\n \"result\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Edição de unidades",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"editar unidade - nome\",\n    \"stage\": \"toapproval\",\n    \"type\": \"virtual\",\n    \"phone\": \"4833333333\",\n    \"status\": true,\n    \"site\": \"www.Novaunidadeteste.com\",\n    \"_id\": \"5f999ae4a905600f46f4b1be\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/branch/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"branch",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Edita uma unidade"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/branch/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"branch",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U22\",\n \"name\": \"BranchUpdateResult\",\n \"result\": {\n  \"_id\": \"5f999ae4a905600f46f4b1be\"\n }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "benefit/v1",
+			"item": [
+				{
+					"name": "Busca por benefícios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"type\": \"event\",\n    \"status\": true,\n    \"title\": {\n      \"$regex\": \"titulo\",\n      \"$options\": \"i\"\n    },\n    \"discount\": {\n      \"$regex\": \"99\",\n      \"$options\": \"i\"\n    },\n    \"shelfLifeStart\": {\n      \"$gt\": \"2020-01-01T21:05:00.000Z\"\n    },\n    \"shelfLifeEnd\": {\n      \"lt\": \"2020-10-01T21:05:00.000Z\"\n    }\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 7,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Buscar benefícios podendo utilizar vários filtros"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"in magna cillum in sit\",\n \"businessId\": \"non aute sed\",\n \"type\": \"dolore labore nulla\",\n \"flagPromotion\": false,\n \"flagSpotlight\": false,\n \"flagHidden\": false,\n \"status\": true,\n \"title\": \"veniam ad non\",\n \"slug\": \"pariatur ipsum Duis irure\",\n \"description\": \"exercitation magna\",\n \"resume\": \"quis\",\n \"videoUrl\": \"Duis tempor sunt\",\n \"discountType\": \"sed dolore laboris\",\n \"discount\": \"sed ullamco ut sint\",\n \"shelfLifeStart\": \"Lorem est\",\n \"shelfLifeEnd\": \"ut aliquip\",\n \"redemptionType\": \"in ani\",\n \"createdAt\": \"eu\",\n \"updatedAt\": \"irure\",\n \"eventDescription\": \"Duis irure\",\n \"siteUrl\": \"sunt\",\n \"tinySiteUrl\": \"nisi tempor\",\n \"footerNote\": \"elit aliqua eu\",\n \"voucherCode\": \"exercitation dolor\",\n \"preGeneratedCode\": \"pariatur Excepteur qui cupidatat dolore\",\n \"voucherAmount\": \"nulla dolor dolore occaec\",\n \"limitVoucherByUser\": \"commodo nulla exercitation in\",\n \"voucherUserLimit\": \"ea irure pariatur\",\n \"voucherShelfLife\": \"m\",\n \"benefitImage\": \"magna reprehenderit pariatur ex\",\n \"voucherPeriodLimit\": \"culpa elit veniam Duis\",\n \"events\": \"culpa\",\n \"categories\": [\n  \"nulla occaecat et ad s\",\n  \"ut nisi voluptate\"\n ]\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Cria benefícios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"event\",\n    \"flagPromotion\": true,\n    \"flagSpotlight\": false,\n    \"flagHidden\": false,\n    \"status\": true,\n    \"title\": \"novo beneficio- titulo\",\n    \"slug\": \"novo-beneficio-titulo\",\n    \"description\": \"novo beneficio- descrição\",\n    \"resume\": \"novo beneficio- resumo\",\n    \"discountType\": \"percent\",\n    \"discount\": 10,\n    \"eventDescription\": \"Confira o valor do lote em vigor no site de vendas\",\n    \"siteUrl\": \"www.youtube.com\",\n    \"footerNote\": \"novo beneficio- nota de rodapé\",\n    \"shelfLifeStart\": \"2020-10-29T14:22:44.106Z\",\n    \"shelfLifeEnd\": \"2021-01-02T02:59:00.000Z\",\n    \"redemptionType\": \"limitlessvoucher\",\n    \"voucherShelfLife\": 5,\n    \"howToUseVoucher\": \"Baixe o voucher no App Clube NSC e apresente o QR Code ou código alfanumérico no estabelecimento para usufruir seu benefício.\",\n    \"businessId\": \"5f999a91ae9b4b0f67cf653b\",\n    \"events\": [],\n    \"branches\": [],\n    \"categories\": []\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Criar um benefício"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U21\",\n \"name\": \"BenefitCreateResult\",\n \"result\": {}\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Edita benefícios",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"event\",\n    \"flagPromotion\": true,\n    \"flagSpotlight\": false,\n    \"flagHidden\": false,\n    \"status\": true,\n    \"title\": \"editar beneficio- titulo\",\n    \"slug\": \"editar-beneficio-titulo\",\n    \"description\": \"editar beneficio- descrição\",\n    \"resume\": \"editar beneficio- resumo\",\n    \"discountType\": \"percent\",\n    \"discount\": 10,\n    \"eventDescription\": \"Confira o valor do lote em vigor no site de vendas\",\n    \"siteUrl\": \"www.youtube.com\",\n    \"footerNote\": \"editar beneficio- nota de rodapé\",\n    \"shelfLifeStart\": \"2020-10-29T14:22:44.106Z\",\n    \"shelfLifeEnd\": \"2021-01-02T02:59:00.000Z\",\n    \"redemptionType\": \"limitlessvoucher\",\n    \"voucherShelfLife\": 5,\n    \"howToUseVoucher\": \"Baixe o voucher no App Clube NSC e apresente o QR Code ou código alfanumérico no estabelecimento para usufruir seu benefício.\",\n    \"businessId\": \"5f999a91ae9b4b0f67cf653b\",\n    \"_id\": \"5f9ad1122c95baaf3da00459\",\n    \"events\": [],\n    \"branches\": [],\n    \"categories\": [],\n    \"createdAt\": \"2020-10-29T14:26:26.441Z\",\n    \"updatedAt\": \"2020-10-29T14:26:26.441Z\",\n    \"branchesList\": [],\n    \"categoriesList\": []\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/benefit/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"benefit",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Editar um benefício"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U22\",\n \"name\": \"BenefitUpdateResult\",\n \"result\": {\n  \"_id\": \"5f9ad1122c95baaf3da00459\"\n }\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/benefit/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"benefit",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "category/v1",
+			"item": [
+				{
+					"name": "Buscar Categorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"categorianome\",\n      \"$options\": \"i\"\n    },\n    \"status\": true\n  },\n  \"aggregates\": [\n    {\n      \"lookup\": {\n        \"from\": \"category\",\n        \"field\": \"parentId\",\n        \"match\": \"_id\",\n        \"result\": \"parentItem\",\n        \"op\": \"$eq\"\n      }\n    }\n  ],\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Busca todas as categorias cadastradas"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"name\": \"labore adipisicing tempor aliquip culpa\",\n \"showMenu\": true,\n \"showApp\": true,\n \"status\": true,\n \"weight\": 93297802,\n \"weightByDate\": true,\n \"createdAt\": \"dolor id pariatur\",\n \"updatedAt\": \"quis minim reprehenderit ipsum\",\n \"_id\": \"in anim ul\",\n \"parentId\": \"tempor ea aliquip\",\n \"parentItem\": [\n  {\n   \"_id\": \"non qui id\",\n   \"name\": \"in non esse Duis elit\",\n   \"weight\": -19540285,\n   \"showMenu\": true,\n   \"showApp\": true,\n   \"weightByDate\": false,\n   \"status\": true,\n   \"iconAppUrl\": \"fugiat\",\n   \"backgroundAppUrl\": \"velit nisi aute\",\n   \"iconWebsiteUrl\": \"magna ullamco aliquip enim\"\n  },\n  {\n   \"_id\": \"dolor ad\",\n   \"name\": \"consequat consectetur ex ut\",\n   \"weight\": 80828657,\n   \"showMenu\": true,\n   \"showApp\": false,\n   \"weightByDate\": false,\n   \"status\": false,\n   \"iconAppUrl\": \"sint ut\",\n   \"backgroundAppUrl\": \"quis Excepteur labore proident\",\n   \"iconWebsiteUrl\": \"enim dolor consequat laboris in\"\n  }\n ]\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Criar categorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parentId\": \"5ef23edd65e4bc0007192365\",\n    \"name\": \"nova categoria - nome\",\n    \"weight\": 1,\n    \"weightByDate\": true,\n    \"status\": true,\n    \"showMenu\": false,\n    \"showApp\": false\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Cria uma categoria"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U21\",\n \"name\": \"CategoryCreateResult\",\n \"result\": {}\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Editar categorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"parentId\": \"5ef1c58af25942a61a573c4e\",\n    \"name\": \"editar categoria - Rede de Cinemas\",\n    \"weight\": 1,\n    \"weightByDate\": false,\n    \"status\": false,\n    \"showMenu\": true,\n    \"showApp\": false,\n    \"_id\": \"5ef1c58af25942a61a573cbc\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/category/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"category",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Edita uma categoria"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U22\",\n \"name\": \"CategoryUpdateResult\",\n \"result\": {\n  \"_id\": \"5ef1c58af25942a61a573cbc\"\n }\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/category/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"category",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "user-vip/v1",
+			"item": [
+				{
+					"name": "Buscar Sócio Beneficiado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"email\": {\n      \"$regex\": \"teste@teste.com\",\n      \"$options\": \"i\"\n    },\n    \"perfil\": \"ARBS\"\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user-vip/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user-vip",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Buscar sócio beneficiado pelo nome ou e-mail"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"culpa in sint\",\n \"cpf\": \"nostrud nulla do\",\n \"name\": \"laboris aute dolore ea\",\n \"email\": \"id ullamco Ut\",\n \"status\": \"culpa commodo ipsum et\",\n \"expiracy\": \"nostrud sunt culpa occaecat\",\n \"perfil\": \"fugiat culpa mollit quis reprehenderit\",\n \"createdAt\": \"dolore culpa\",\n \"updatedAt\": \"voluptate et eu ea\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Criação de usuário sócio beneficiado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"novo beneficiado - nome\",\n    \"email\": \"novobeneficiado@teste.com\",\n    \"expiracy\": \"2020-10-28T16:27:10.339Z\",\n    \"cpf\": \"66703551065\",\n    \"perfil\": \"VITALICIO\",\n    \"status\": true\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user-vip/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user-vip",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Criação um usuário beneficiado"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"C00\",\n \"name\": \"UserVipCreateResult\",\n \"result\": {}\n}"
+						}
+					]
+				},
+				{
+					"name": "Edita beneficiado",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"editar beneficiado - nome\",\n    \"email\": \"novobeneficiado@teste.com\",\n    \"expiracy\": \"2020-10-28T16:27:10.339Z\",\n    \"cpf\": \"66703551065\",\n    \"perfil\": \"VITALICIO\",\n    \"status\": true,\n    \"_id\": \"5f999c35a718740f6dc91a40\",\n    \"createdBy\": \"5ef1c607c2dd16a8a6c242b4\",\n    \"createdAt\": \"2020-10-28T16:28:36.956Z\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/user-vip/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"user-vip",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Edição um usuário beneficiado"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/user-vip/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"user-vip",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"C00\",\n \"name\": \"UserVipUpdateResult\",\n \"result\": {\n  \"_id\": \"5f999c35a718740f6dc91a40\"\n }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "banner/v1",
+			"item": [
+				{
+					"name": "Buscar Banners",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"benefitId\": {\n      \"exists\": true\n    }\n  },\n  \"aggregates\": [\n    {\n      \"lookup\": {\n        \"from\": \"benefit\",\n        \"field\": \"benefitId\",\n        \"match\": \"_id\",\n        \"result\": \"benefit\",\n        \"op\": \"$eq\"\n      }\n    }\n  ],\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/banner/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"banner",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Buscar os banners da home do site"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"in aliqua velit exercitation ut\",\n \"type\": \"consequat deserunt nulla culpa\",\n \"weight\": 17769513,\n \"benefitId\": \"dolor\",\n \"title\": \"dolore aute ex aliquip\",\n \"description\": -16359512,\n \"redirectUrl\": \"culpa e\",\n \"imageUrl\": \"sed laborum Lorem qui\",\n \"createdBy\": \"irure occaecat\",\n \"updatedAt\": \"veniam proident sint\",\n \"benefit\": \"ullamco\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Cria Banners",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"NO_BENEFIT\",\n    \"weight\": 99,\n    \"title\": \"novo banner- titulo\",\n    \"description\": \"novo banner- descrição\",\n    \"redirectUrl\": \"www.youtube.com\",\n    \"imageUrl\": \"9695d010154a202b8161847fbe0063c0-full.jpg\",\n    \"benefitId\": null\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/banner/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"banner",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Cria um banner para a home do site do Clube NSC"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U21\",\n \"name\": \"BannerCreateResult\",\n \"result\": {}\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Edita Banners",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "<Bearer Token>",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"type\": \"NO_BENEFIT\",\n    \"weight\": 99,\n    \"title\": \"editar banner- titulo\",\n    \"description\": \"editar banner- descrição\",\n    \"redirectUrl\": \"www.youtube.com\",\n    \"imageUrl\": \"329437f5be2a20e8a2951751c8d182b5-full.jpg\",\n    \"_id\": \"5f9ad4348b7aaeaf45f47666\",\n    \"benefitId\": null,\n    \"createdBy\": \"5ef1c607c2dd16a8a6c242b4\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/banner/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"banner",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Editar um banner para a home do site do Clube NSC"
+					},
+					"response": [
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U22\",\n \"name\": \"BannerUpdateResult\",\n \"result\": {\n  \"_id\": \"5f9ad4348b7aaeaf45f47666\"\n }\n}"
+						},
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [
+									{
+										"description": {
+											"content": "Added as a part of security scheme: bearer",
+											"type": "text/plain"
+										},
+										"key": "Authorization",
+										"value": "Bearer <token>"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/banner/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"banner",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "content/v1",
+			"item": [
+				{
+					"name": "Busca conteúdo do site",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome_descritivo\",\n      \"$options\": \"i\"\n    },\n    \"body\": {\n      \"$regex\": \"conteudo\",\n      \"$options\": \"i\"\n    },\n    \"identifier\": {\n      \"$regex\": \"identificador\",\n      \"$options\": \"i\"\n    }\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/content/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"content",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Busca pelo conteúdo do site"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/content/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"content",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/content/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"content",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"in nisi\",\n \"body\": \"pariatur in Excepteur amet veniam\",\n \"component\": \"incididunt\",\n \"identifier\": \"aute\",\n \"name\": \"non p\",\n \"updatedAt\": \"consectetur minim dolor\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Edita conteúdo do site",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"body\": \"editar Como ter acesso aos Benefícios\",\n    \"name\": \"editar Segundo card título\",\n    \"component\": \"about\",\n    \"identifier\": \"secondCardTitle\",\n    \"_id\": \"5eecda5349256b1bdf3ba627\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/content/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"content",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Editar algum conteúdo do site"
+					},
+					"response": [
+						{
+							"name": "Invalid Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/content/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"content",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "Successful Operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/content/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"content",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"C00\",\n \"name\": \"ContentUpdateResult\",\n \"result\": {\n  \"_id\": \"5eecda5349256b1bdf3ba627\"\n }\n}"
+						}
+					]
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "faq/v1",
+			"item": [
+				{
+					"name": "Busca dados do FAQ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"filters\": {\n    \"status\": true\n  },\n  \"options\": {\n    \"sort\": {\n      \"weight\": 1\n    }\n  }\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/faq/v1/find",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"faq",
+								"v1",
+								"find"
+							]
+						},
+						"description": "Busca as perguntas/respostas do FAQ do site do Clube"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"_id\": \"cillum ut qui dolore laborum\",\n \"title\": \"sunt qui quis\",\n \"description\": \"occaecat\",\n \"weight\": 86417587,\n \"status\": false\n}"
+						},
+						{
+							"name": "Invalid input/id/etc (todo)",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/find",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"find"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Cria entrada no FAQ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"novo faq- titulo\",\n    \"description\": \"novo faq- descrição\",\n    \"weight\": 99,\n    \"status\": true\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/faq/v1/create",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"faq",
+								"v1",
+								"create"
+							]
+						},
+						"description": "Cria mais uma entrada nas Dúvidas Frequentes (FAQ) do site do Clube"
+					},
+					"response": [
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U21\",\n \"name\": \"FaqCreateResult\",\n \"result\": {}\n}"
+						},
+						{
+							"name": "Invalid operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/create",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"create"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						}
+					]
+				},
+				{
+					"name": "Edita dados no FAQ",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"editar faq - titulo\",\n    \"description\": \"editar faq - descrição\",\n    \"weight\": 99,\n    \"status\": false,\n    \"_id\": \"5f9ad4684338c2af3b564542\"\n}",
+							"options": {
+								"raw": {}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/faq/v1/update",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"faq",
+								"v1",
+								"update"
+							]
+						},
+						"description": "Editar um FAQ do site do Clube"
+					},
+					"response": [
+						{
+							"name": "Invalid operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "text",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "text/plain"
+								}
+							],
+							"cookie": [],
+							"body": ""
+						},
+						{
+							"name": "successful operation",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/faq/v1/update",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"faq",
+										"v1",
+										"update"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n \"code\": \"U22\",\n \"name\": \"FaqUpdateResult\",\n \"result\": {\n  \"_id\": \"5f9ad4684338c2af3b564542\"\n }\n}"
 						}
 					]
 				}
@@ -253,16 +2901,6 @@
 		{
 			"name": "Consulta de permissẽs de acesso",
 			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
 				"method": "POST",
 				"header": [
 					{
@@ -334,902 +2972,6 @@
 								"access",
 								"v1",
 								"verify"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Busca por benefícios",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"email\": {\n      \"$regex\": \"teste@teste.com\",\n      \"$options\": \"i\"\n    },\n    \"stage\": \"toapproval\"\n  },\n  \"options\": {\n    \"sort\": {\n      \"_id\": -1\n    },\n    \"limit\": 5,\n    \"skip\": 0\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/business/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"business",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Buscar benefícios podendo utilizar vários filtros"
-			},
-			"response": [
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/business/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"business",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/business/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"business",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"nulla\",\n \"name\": \"incididunt aliquip\",\n \"alias\": \"exercitation proident enim magna\",\n \"cnpj\": \"officia laboris\",\n \"address\": \"mollit\",\n \"number\": \"ad aliquip\",\n \"district\": \"est laborum\",\n \"complement\": \"in aute\",\n \"city\": \"mollit \",\n \"state\": \"nulla\",\n \"contact\": \"eiusmod aute\",\n \"email\": \"dolore mollit sint pro\",\n \"site\": \"voluptate Excepteur in culpa\",\n \"zipcode\": \"consequat nostrud e\",\n \"phone\": \"labor\",\n \"stage\": \"irure non s\",\n \"status\": false,\n \"branches\": [\n  \"5ef1c58af25942a61a5737d7\",\n  \"5ef1c58af25942a61a5737d7\"\n ],\n \"branchesList\": [\n  {\n   \"from\": \"branch\",\n   \"field\": \"branches\"\n  },\n  {\n   \"from\": \"branch\",\n   \"field\": \"branches\"\n  }\n ]\n}"
-				}
-			]
-		},
-		{
-			"name": "Busca por branches",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"type\": \"fisico\",\n    \"stage\": \"onapproval\",\n    \"state\": 12,\n    \"city\": 1200401\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/branch/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"branch",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Buscar benefícios podendo utilizar vários filtros"
-			},
-			"response": [
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/branch/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"branch",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"5f76054013cd4000086a893f\",\n \"name\": \"Mobly - Loja Online\",\n \"stage\": \"approved\",\n \"type\": \"virtual\",\n \"status\": false,\n \"site\": \"http://bit.ly/MoblyClubeNSC\"\n}"
-				},
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/branch/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"branch",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Busca por benefícios",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"type\": \"event\",\n    \"status\": true,\n    \"title\": {\n      \"$regex\": \"titulo\",\n      \"$options\": \"i\"\n    },\n    \"discount\": {\n      \"$regex\": \"99\",\n      \"$options\": \"i\"\n    },\n    \"shelfLifeStart\": {\n      \"$gt\": \"2020-01-01T21:05:00.000Z\"\n    },\n    \"shelfLifeEnd\": {\n      \"lt\": \"2020-10-01T21:05:00.000Z\"\n    }\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 7,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/benefit/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"benefit",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Buscar benefícios podendo utilizar vários filtros"
-			},
-			"response": [
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/benefit/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"benefit",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"ut\",\n \"businessId\": \"culpa exercitation esse\",\n \"type\": \"cillum ipsum magna sint\",\n \"flagPromotion\": true,\n \"flagSpotlight\": true,\n \"flagHidden\": true,\n \"status\": false,\n \"title\": \"id amet\",\n \"slug\": \"adipisicing dolore dolor\",\n \"description\": \"ut incididunt\",\n \"resume\": \"in sint reprehenderit est aliqua\",\n \"videoUrl\": \"lab\",\n \"discountType\": \"elit\",\n \"discount\": \"elit dolor\",\n \"shelfLifeStart\": \"deserunt officia dolor\",\n \"shelfLifeEnd\": \"quis nostrud labore consequat\",\n \"redemptionType\": \"quis\",\n \"createdAt\": \"aliquip sunt dolor deserunt \",\n \"updatedAt\": \"id fugiat proident in\",\n \"eventDescription\": \"tempor id\",\n \"siteUrl\": \"amet nulla\",\n \"tinySiteUrl\": \"deserunt\",\n \"footerNote\": \"dolor commodo Excepteur\",\n \"voucherCode\": \"Ut cupidatat consectetur\",\n \"preGeneratedCode\": \"do\",\n \"voucherAmount\": \"in non\",\n \"limitVoucherByUser\": \"do cupidatat elit Excepteur nisi\",\n \"voucherUserLimit\": \"adipisicing laborum tempor\",\n \"voucherShelfLife\": \"culpa enim qui aliquip\",\n \"benefitImage\": \"minim velit consectetur\",\n \"voucherPeriodLimit\": \"ea nisi\",\n \"events\": \"laborum\",\n \"categories\": [\n  \"voluptate Ut\",\n  \"tempor in occaecat\"\n ]\n}"
-				},
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/benefit/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"benefit",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Buscar Categorias",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"categorianome\",\n      \"$options\": \"i\"\n    },\n    \"status\": true\n  },\n  \"aggregates\": [\n    {\n      \"lookup\": {\n        \"from\": \"category\",\n        \"field\": \"parentId\",\n        \"match\": \"_id\",\n        \"result\": \"parentItem\",\n        \"op\": \"$eq\"\n      }\n    }\n  ],\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/category/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"category",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Busca todas as categorias cadastradas"
-			},
-			"response": [
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/category/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/category/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"category",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"name\": \"anim eu\",\n \"showMenu\": true,\n \"showApp\": false,\n \"status\": false,\n \"weight\": -11907320,\n \"weightByDate\": false,\n \"createdAt\": \"dolore\",\n \"updatedAt\": \"ipsum enim adipisicing nulla\",\n \"_id\": \"velit aliqua ut\",\n \"parentId\": \"cupidat\",\n \"parentItem\": [\n  {\n   \"_id\": \"et nulla ea irure adipisicing\",\n   \"name\": \"nisi ipsum veniam amet\",\n   \"weight\": -59946022,\n   \"showMenu\": true,\n   \"showApp\": false,\n   \"weightByDate\": false,\n   \"status\": false,\n   \"iconAppUrl\": \"Excepteur enim deserunt labore qui\",\n   \"backgroundAppUrl\": \"quis dolor commodo\",\n   \"iconWebsiteUrl\": \"proident nisi reprehenderit\"\n  },\n  {\n   \"_id\": \"velit minim voluptate mollit\",\n   \"name\": \"nostrud occaecat ipsum commodo Duis\",\n   \"weight\": -96541445,\n   \"showMenu\": true,\n   \"showApp\": false,\n   \"weightByDate\": false,\n   \"status\": true,\n   \"iconAppUrl\": \"sint ullamco ea anim\",\n   \"backgroundAppUrl\": \"qui\",\n   \"iconWebsiteUrl\": \"minim\"\n  }\n ]\n}"
-				}
-			]
-		},
-		{
-			"name": "Buscar Sócio Beneficiado",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome\",\n      \"$options\": \"i\"\n    },\n    \"email\": {\n      \"$regex\": \"teste@teste.com\",\n      \"$options\": \"i\"\n    },\n    \"perfil\": \"ARBS\"\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/user-vip/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"user-vip",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Buscar sócio beneficiado pelo nome ou e-mail"
-			},
-			"response": [
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/user-vip/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"user-vip",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"id\",\n \"cpf\": \"eu consectetur\",\n \"name\": \"nisi ea eu in magna\",\n \"email\": \"do pariatur proident\",\n \"status\": \"magna\",\n \"expiracy\": \"qui aute\",\n \"perfil\": \"irure fugiat do aute\",\n \"createdAt\": \"in aliqua dolore nostrud quis\",\n \"updatedAt\": \"officia dolor dolor sed\"\n}"
-				},
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/user-vip/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"user-vip",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Buscar Banners",
-			"request": {
-				"auth": {
-					"type": "bearer",
-					"bearer": [
-						{
-							"key": "token",
-							"value": "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Inplcm8uZHVoQGdtYWlsLmNvbSIsImlhdCI6MTU2MDM0ODMyMSwiZXhwIjoxNTYwMzUxOTIzLCJhdWQiOiJTRVJWSUNFIiwiaXNzIjoiU0VSVklDRSIsInN1YiI6IlNFUlZJQ0UifQ.EyJjXPhm-8f2vLFOZvZhkTR3H9fhzgCkVUa7ZicY_cdwxJ4BCkhbKPTJLOlYOqE4PoPWRdQtv1v447EyvphVxqRI6P5ieV26LN0RdAKswF1zx-gST_lyhFaQtoQqNFLF7QRdGNPKV7o38ihiDrf2UxHfXbLru0fC64iKQ883L2A",
-							"type": "string"
-						}
-					]
-				},
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"benefitId\": {\n      \"exists\": true\n    }\n  },\n  \"aggregates\": [\n    {\n      \"lookup\": {\n        \"from\": \"benefit\",\n        \"field\": \"benefitId\",\n        \"match\": \"_id\",\n        \"result\": \"benefit\",\n        \"op\": \"$eq\"\n      }\n    }\n  ],\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/banner/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"banner",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Buscar os banners da home do site"
-			},
-			"response": [
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/banner/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"banner",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"fugiat magna amet\",\n \"type\": \"Duis\",\n \"weight\": 21683724,\n \"benefitId\": \"eiusmod dolore reprehenderit\",\n \"title\": \"consectetur est anim\",\n \"description\": 11899631,\n \"redirectUrl\": \"sint eu magna nisi\",\n \"imageUrl\": \"est amet culpa deserunt\",\n \"createdBy\": \"laboris incididunt in tempor consequat\",\n \"updatedAt\": \"quis nisi\",\n \"benefit\": \"id\"\n}"
-				},
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [
-							{
-								"description": {
-									"content": "Added as a part of security scheme: bearer",
-									"type": "text/plain"
-								},
-								"key": "Authorization",
-								"value": "Bearer <token>"
-							}
-						],
-						"url": {
-							"raw": "{{baseUrl}}/banner/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"banner",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				}
-			]
-		},
-		{
-			"name": "Conteúdo do site",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"name\": {\n      \"$regex\": \"nome_descritivo\",\n      \"$options\": \"i\"\n    },\n    \"body\": {\n      \"$regex\": \"conteudo\",\n      \"$options\": \"i\"\n    },\n    \"identifier\": {\n      \"$regex\": \"identificador\",\n      \"$options\": \"i\"\n    }\n  },\n  \"options\": {\n    \"skip\": 0,\n    \"limit\": 5,\n    \"sort\": {\n      \"_id\": -1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/content/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"content",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Busca pelo conteúdo do site"
-			},
-			"response": [
-				{
-					"name": "Invalid Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/content/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"content",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "Bad Request",
-					"code": 400,
-					"_postman_previewlanguage": "text",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "text/plain"
-						}
-					],
-					"cookie": [],
-					"body": ""
-				},
-				{
-					"name": "Successful Operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/content/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"content",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"eu in adipisicing sit\",\n \"body\": \"anim\",\n \"component\": \"consectetur anim irure al\",\n \"identifier\": \"ut Ut consectetur\",\n \"name\": \"in ea est in\",\n \"updatedAt\": \"in labore pariatur occaecat\"\n}"
-				}
-			]
-		},
-		{
-			"name": "find Faq",
-			"request": {
-				"method": "POST",
-				"header": [
-					{
-						"key": "Content-Type",
-						"value": "application/json"
-					}
-				],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n  \"filters\": {\n    \"status\": true\n  },\n  \"options\": {\n    \"sort\": {\n      \"weight\": 1\n    }\n  }\n}",
-					"options": {
-						"raw": {}
-					}
-				},
-				"url": {
-					"raw": "{{baseUrl}}/faq/v1/find",
-					"host": [
-						"{{baseUrl}}"
-					],
-					"path": [
-						"faq",
-						"v1",
-						"find"
-					]
-				},
-				"description": "Busca as perguntas/respostas do FAQ do site do Clube"
-			},
-			"response": [
-				{
-					"name": "successful operation",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/faq/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"faq",
-								"v1",
-								"find"
-							]
-						}
-					},
-					"status": "OK",
-					"code": 200,
-					"_postman_previewlanguage": "json",
-					"header": [
-						{
-							"key": "Content-Type",
-							"value": "application/json"
-						}
-					],
-					"cookie": [],
-					"body": "{\n \"_id\": \"fugiat ullamco in irure\",\n \"title\": \"veniam adipisicing laborum\",\n \"description\": \"minim enim ullamco\",\n \"weight\": 54211876,\n \"status\": false\n}"
-				},
-				{
-					"name": "Invalid input/id/etc (todo)",
-					"originalRequest": {
-						"method": "POST",
-						"header": [],
-						"url": {
-							"raw": "{{baseUrl}}/faq/v1/find",
-							"host": [
-								"{{baseUrl}}"
-							],
-							"path": [
-								"faq",
-								"v1",
-								"find"
 							]
 						}
 					},
