@@ -1,0 +1,170 @@
+backoffice endpoints - creates/updates/delete
+
+-------------- [ UPDATE ] --------------
+editar parceiro
+https://localhost:9021/business/v1/update
+{"alias":"editar parceiro - razao social","stage":"approved","name":"editar  parceiro - nome fantasia","cnpj":"99805575000149","zipcode":"88030300","address":"Rodovia João Paulo","district":"João Paulo","number":0,"complement":"complemento 222","state":42,"city":"4205407","phone":"4833333333","contact":"novo parceiro - nome responsavel","email":"novoparceiro@teste.com","site":"www.novoparceiroteste.com","status":false,"_id":"5f999a91ae9b4b0f67cf653b","branches":[],"createdAt":"2020-10-28T16:21:37.232Z","updatedAt":"2020-10-28T16:21:37.232Z","branchesList":[],"usersList":[],"oldUsers":[],"users":[]}
+{"code":"BS22","name":"BusinessUpdateResult","result":{"_id":"5f999a91ae9b4b0f67cf653b"}}
+
+https://localhost:9090/branch/v1/update
+{"name":"editar unidade - nome","stage":"toapproval","type":"virtual","phone":"4833333333","status":true,"site":"www.Novaunidadeteste.com","_id":"5f999ae4a905600f46f4b1be"}
+{"code":"U22","name":"BranchUpdateResult","result":{"_id":"5f999ae4a905600f46f4b1be"}}
+
+https://localhost:9060/category/v1/update
+{"parentId":"5ef1c58af25942a61a573c4e","name":"editar categoria - Rede de Cinemas","weight":1,"weightByDate":false,"status":false,"showMenu":true,"showApp":false,"_id":"5ef1c58af25942a61a573cbc"}
+{"code":"U22","name":"CategoryUpdateResult","result":{"_id":"5ef1c58af25942a61a573cbc"}}
+
+https://localhost:9200/user-vip/v1/update
+{"name":"editar beneficiado - nome","email":"novobeneficiado@teste.com","expiracy":"2020-10-28T16:27:10.339Z","cpf":"66703551065","perfil":"VITALICIO","status":true,"_id":"5f999c35a718740f6dc91a40","createdBy":"5ef1c607c2dd16a8a6c242b4","createdAt":"2020-10-28T16:28:36.956Z"}
+{"code":"C00","name":"UserVipUpdateResult","result":{"_id":"5f999c35a718740f6dc91a40"}}
+
+https://localhost:9085/benefit/v1/update
+{"type":"event","flagPromotion":true,"flagSpotlight":false,"flagHidden":false,"status":true,"title":"editar beneficio- titulo","slug":"editar-beneficio-titulo","description":"editar beneficio- descrição","resume":"editar beneficio- resumo","discountType":"percent","discount":10,"eventDescription":"Confira o valor do lote em vigor no site de vendas","siteUrl":"www.youtube.com","footerNote":"editar beneficio- nota de rodapé","shelfLifeStart":"2020-10-29T14:22:44.106Z","shelfLifeEnd":"2021-01-02T02:59:00.000Z","redemptionType":"limitlessvoucher","voucherShelfLife":5,"howToUseVoucher":"Baixe o voucher no App Clube NSC e apresente o QR Code ou código alfanumérico no estabelecimento para usufruir seu benefício.","businessId":"5f999a91ae9b4b0f67cf653b","_id":"5f9ad1122c95baaf3da00459","events":[],"branches":[],"categories":[],"createdAt":"2020-10-29T14:26:26.441Z","updatedAt":"2020-10-29T14:26:26.441Z","branchesList":[],"categoriesList":[]}
+{"code":"U22","name":"BenefitUpdateResult","result":{"_id":"5f9ad1122c95baaf3da00459"}}
+
+https://localhost:9080/banner/v1/update
+{"type":"NO_BENEFIT","weight":99,"title":"editar banner- titulo","description":"editar banner- descrição","redirectUrl":"www.youtube.com","imageUrl":"329437f5be2a20e8a2951751c8d182b5-full.jpg","_id":"5f9ad4348b7aaeaf45f47666","benefitId":null,"createdBy":"5ef1c607c2dd16a8a6c242b4"}
+{"code":"U22","name":"BannerUpdateResult","result":{"_id":"5f9ad4348b7aaeaf45f47666"}}
+
+https://localhost:9300/content/v1/update
+{"body":"editar Como ter acesso aos Benefícios","name":"editar Segundo card título","component":"about","identifier":"secondCardTitle","_id":"5eecda5349256b1bdf3ba627"}
+{"code":"C00","name":"ContentUpdateResult","result":{"_id":"5eecda5349256b1bdf3ba627"}}
+
+https://localhost:9070/faq/v1/update
+{"title":"editar faq - titulo","description":"editar faq - descrição","weight":99,"status":false,"_id":"5f9ad4684338c2af3b564542"}
+{"code":"U22","name":"FaqUpdateResult","result":{"_id":"5f9ad4684338c2af3b564542"}}
+
+
+
+-------------- [ CREATE ] --------------
+
+listar parceiros (+) -  novo parceiro
+https://localhost:9021/business/v1/create/with-user-branch
+{"alias":"novo parceiro - razao social","stage":"onapproval","name":"novo parceiro - nome fantasia","cnpj":"99805575000149","zipcode":"88030300","address":"Rodovia João Paulo","district":"João Paulo","number":0,"complement":"complemento 222","state":42,"city":"4205407","phone":"4833333333","contact":"novo parceiro - nome responsavel","email":"novoparceiro@teste.com","site":"www.novoparceiroteste.com","status":false,"oldUsers":[],"users":[],"branches":[]}
+{"code":"BS21","name":"BusinessCreateResult","result":[{"alias":"novo parceiro - razao social","stage":"onapproval","name":"novo parceiro - nome fantasia","cnpj":"99805575000149","zipcode":"88030300","address":"Rodovia João Paulo","district":"João Paulo","number":0,"complement":"complemento 222","state":42,"city":"4205407","phone":"4833333333","contact":"novo parceiro - nome responsavel","email":"novoparceiro@teste.com","site":"www.novoparceiroteste.com","status":false,"branches":[],"createdAt":"2020-10-28T16:21:37.232Z","updatedAt":"2020-10-28T16:21:37.232Z","_id":"5f999a91ae9b4b0f67cf653b"}]}
+
+listar unidades (+) -  nova unidade
+https://localhost:9090/branch/v1/create
+{"name":"Nova unidade - nome","stage":"onapproval","type":"virtual","phone":"4833333333","status":true,"site":"www.Novaunidadeteste.com"}
+{"code":"U21","name":"BranchCreateResult","result":{}}
+
+listar categorias (+) - nova categoria
+https://localhost:9060/category/v1/create
+{"parentId":"5ef23edd65e4bc0007192365","name":"nova categoria - nome","weight":1,"weightByDate":true,"status":true,"showMenu":false,"showApp":false}
+{"code":"U21","name":"CategoryCreateResult","result":{}}
+
+listar beneficiados (+) - novo beneficiado
+https://localhost:9200/user-vip/v1/create
+{"name":"novo beneficiado - nome","email":"novobeneficiado@teste.com","expiracy":"2020-10-28T16:27:10.339Z","cpf":"66703551065","perfil":"VITALICIO","status":true}
+{"code":"C00","name":"UserVipCreateResult","result":{}}
+
+listar beneficios (+) - novo beneficio
+https://localhost:9085/benefit/v1/create
+{"type":"event","flagPromotion":true,"flagSpotlight":false,"flagHidden":false,"status":true,"title":"novo beneficio- titulo","slug":"novo-beneficio-titulo","description":"novo beneficio- descrição","resume":"novo beneficio- resumo","discountType":"percent","discount":10,"eventDescription":"Confira o valor do lote em vigor no site de vendas","siteUrl":"www.youtube.com","footerNote":"novo beneficio- nota de rodapé","shelfLifeStart":"2020-10-29T14:22:44.106Z","shelfLifeEnd":"2021-01-02T02:59:00.000Z","redemptionType":"limitlessvoucher","voucherShelfLife":5,"howToUseVoucher":"Baixe o voucher no App Clube NSC e apresente o QR Code ou código alfanumérico no estabelecimento para usufruir seu benefício.","businessId":"5f999a91ae9b4b0f67cf653b","events":[],"branches":[],"categories":[]}
+
+listar banners (+) - novo banner
+https://localhost:9080/banner/v1/create
+{"type":"NO_BENEFIT","weight":99,"title":"novo banner- titulo","description":"novo banner- descrição","redirectUrl":"www.youtube.com","imageUrl":"9695d010154a202b8161847fbe0063c0-full.jpg","benefitId":null}
+
+listar faq (+) - novo FAQ
+https://localhost:9070/faq/v1/create
+{"title":"novo faq- titulo","description":"novo faq- descrição","weight":99,"status":true}
+{"code":"U21","name":"FaqCreateResult","result":{}}
+
+
+
+
+==================================================================================================================================================
+backoffice endpoints - just opening each page/link
+
+access/v1/verify
+business/v1/find	(s?create/wIthoutToken)
+voucher/v1/find		a
+
+branch/v1/find
+category/v1/find	(s? getAll)
+
+voucher/v1/getList
+user-vip/v1/find	(a?find/one )
+
+(failed)net::ERR_CONNECTION_REFUSED
+
+banner/v1/find		(s? getList)
+content/v1/find		s
+faq/v1/find			s
+
+
+===== OPEN FIRST TIME : HOME (link 1: perfil do consumidor) parceiro/redemption/consumer =====
+verify	https://localhost:9030/access/v1/verify	200	fetch	access.action.js:221	884 B	1.19 s
+{"list":[{"slug":"banner-view"},{"slug":"banner-view-any"},{"slug":"banner-edit"},{"slug":"banner-edit-any"},{"slug":"banner-remove"},{"slug":"banner-remove-any"},{"slug":"banner-create"},{"slug":"banner-create-any"},{"slug":"benefit-view"},{"slug":"benefit-view-any"},{"slug":"benefit-edit"},{"slug":"benefit-edit-any"},{"slug":"benefit-remove"},{"slug":"benefit-remove-any"},{"slug":"benefit-create"},{"slug":"benefit-create-any"},{"slug":"bonus-view"},{"slug":"bonus-view-any"},{"slug":"branch-view"},{"slug":"branch-view-any"},{"slug":"branch-edit"},{"slug":"branch-edit-any"},{"slug":"branch-remove"},{"slug":"branch-remove-any"},{"slug":"branch-create"},{"slug":"branch-create-any"},{"slug":"business-view"},{"slug":"business-view-any"},{"slug":"business-edit"},{"slug":"business-edit-any"},{"slug":"business-create"},{"slug":"business-create-any"},{"slug":"business-remove"},{"slug":"business-remove-any"},{"slug":"category-view"},{"slug":"category-view-any"},{"slug":"category-edit"},{"slug":"category-edit-any"},{"slug":"category-create"},{"slug":"category-create-any"},{"slug":"category-remove"},{"slug":"category-remove-any"},{"slug":"faq-view"},{"slug":"faq-view-any"},{"slug":"faq-edit"},{"slug":"faq-edit-any"},{"slug":"faq-create"},{"slug":"faq-create-any"},{"slug":"faq-remove"},{"slug":"faq-remove-any"},{"slug":"perm-view"},{"slug":"perm-view-any"},{"slug":"perm-edit"},{"slug":"perm-edit-any"},{"slug":"perm-remove"},{"slug":"perm-remove-any"},{"slug":"perm-create"},{"slug":"perm-create-any"},{"slug":"subscription-view"},{"slug":"subscription-view-any"},{"slug":"subscription-edit"},{"slug":"subscription-edit-any"},{"slug":"subscription-create"},{"slug":"subscription-create-any"},{"slug":"subscription-remove"},{"slug":"subscription-remove-any"},{"slug":"user-view"},{"slug":"user-view-any"},{"slug":"user-pass-view"},{"slug":"user-edit"},{"slug":"user-edit-any"},{"slug":"user-pass-edit"},{"slug":"user-create"},{"slug":"user-create-any"},{"slug":"user-remove"},{"slug":"user-remove-any"},{"slug":"redemption-view"},{"slug":"redemption-view-any"},{"slug":"voucher-view"},{"slug":"voucher-view-any"},{"slug":"voucher-edit"},{"slug":"voucher-edit-any"},{"slug":"voucher-create"},{"slug":"voucher-create-any"},{"slug":"voucher-remove"},{"slug":"voucher-remove-any"},{"slug":"voucher-validate"},{"slug":"userVip-view"},{"slug":"userVip-view-any"},{"slug":"userVip-edit"},{"slug":"userVip-edit-any"},{"slug":"userVip-remove"},{"slug":"userVip-remove-any"},{"slug":"userVip-create"},{"slug":"userVip-create-any"},{"slug":"content-view"},{"slug":"content-view-any"},{"slug":"content-edit"},{"slug":"content-edit-any"},{"slug":"content-remove"},{"slug":"content-remove-any"},{"slug":"content-create"},{"slug":"content-create-any"},{"slug":"voucherCode-view"},{"slug":"voucherCode-view-any"},{"slug":"voucherCode-edit"},{"slug":"voucherCode-edit-any"},{"slug":"voucherCode-create"},{"slug":"voucherCode-create-any"},{"slug":"voucherCode-remove"},{"slug":"voucherCode-remove-any"}]}
+
+
+find	https://localhost:9021/business/v1/find	200	fetch	business.action.js:202	149 kB	14.60 s
+{"filters":{},"aggregates":[{"lookup":{"from":"branch","field":"branches","match":"_id","result":"branchesList"}}],"options":{"aggregates":[{"$sort":{"name":1}}]}}
+
+
+find	https://localhost:9095/voucher/v1/find	200	fetch	voucher.action.js:231	424 B	731 m
+{"filters":{"createdAt":{"$gte":"2020-10-11T03:00:00.000Z","$lte":"2020-10-18T02:59:59.999Z"}},"aggregates":[{"$group":{"_id":"$status","count":{"$sum":1}}},{"$sort":{"count":-1}}],"options":{"sort":{"_id":-1}}}
+{"filters":{"createdAt":{"$gte":"2020-10-11T03:00:00.000Z","$lte":"2020-10-18T02:59:59.999Z"},"businessId":"5ef1c58af25942a61a573e41"},"aggregates":[{"$group":{"_id":"$status","count":{"$sum":1}}},{"$sort":{"count":-1}}],"options":{"sort":{"_id":-1}}}
+{"filters":{"createdAt":{"$gte":"2020-10-11T03:00:00.000Z","$lte":"2020-10-18T02:59:59.999Z"},"businessId":"5ef1c58af25942a61a573e41","branchId":"5ef1c58af25942a61a57378c"},"aggregates":[{"$group":{"_id":"$status","count":{"$sum":1}}},{"$sort":{"count":-1}}],"options":{"sort":{"_id":-1}}}
+
+find	https://localhost:9095/voucher/v1/find	200	fetch	voucher.action.js:231	424 B	731 m
+{"filters":{"createdAt":{"$gte":"2020-10-11T03:00:00.000Z","$lte":"2020-10-18T02:59:59.999Z"}},"aggregates":[{"$group":{"_id":"$status","count":{"$sum":1}}},{"$sort":{"count":-1}}],"options":{"sort":{"_id":-1}}}
+
+
+--PARCEIROS
+===== LISTAR PARCEIROS =====
+find	https://localhost:9021/business/v1/find	200	fetch	business.action.js:202	1.4 kB	1.50 s
+{"filters":{},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"nome","$options":"i"}},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"nome","$options":"i"},"email":{"$regex":"teste@teste.com","$options":"i"},"stage":"toapproval"},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+
+
+===== LISTAR UNIDADES =====
+find https://localhost:9090/branch/v1/find	200	fetch	branch.action.js:134	981 B
+{"filters":{},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"nome","$options":"i"},"type":"fisico","stage":"onapproval","state":12,"city":"1200401"},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+
+
+===== LISTAR CATEGORIAS =====
+find	https://localhost:9060/category/v1/find	200	fetch	category.action.js:222	953 B
+{"filters":{},"aggregates":[{"lookup":{"from":"category","field":"parentId","match":"_id","result":"parentItem","op":"$eq"}}],"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"categorianome","$options":"i"},"status":"true"},"aggregates":[{"lookup":{"from":"category","field":"parentId","match":"_id","result":"parentItem","op":"$eq"}}],"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+
+
+--ASSINANTES
+===== LISTAR RESGATES =====
+									(pq demora 30 segundos pra retornar???)
+getList	https://localhost:9095/voucher/v1/getList	200	fetch	voucher.action.js:282	4.9 kB
+{"filters":{},"options":{"limit":5,"skip":0}}
+{"filters":{"qrcode":{"$regex":"123123123","$options":"i"},"business":{"$regex":"nomeparceiro","$options":"i"},"status":"used"},"options":{"limit":5,"skip":0}}
+
+
+===== LISTAR BENEFICIADOS =====
+find	https://localhost:9200/user-vip/v1/find	200	fetch	userVip.action.js:132	971 B	1.46 s
+{"filters":{},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"nome","$options":"i"},"email":{"$regex":"teste@teste.com","$options":"i"},"perfil":"ARBS"},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+
+--COMUNICAÇÃO
+===== LISTAR BENEFICIOS =====
+find	https://localhost:9085/benefit/v1/find	(failed)net::ERR_CONNECTION_REFUSED	fetch	benefit.action.js:206	0 B	25 ms
+{"filters":{},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+{"filters":{"title":{"$regex":"titulo","$options":"i"},"type":"event","discount":{"$regex":"99","$options":"i"},"status":true,"shelfLifeStart":{"$gt":"2020-01-01T21:05:00.000Z"},"shelfLifeEnd":{"$lt":"2020-10-01T21:05:00.000Z"}},"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+ou
+{"filters":{"_id":"5f7607fa5079660007af9dde"},"aggregates":[{"lookup":{"from":"branch","field":"branches.event","match":"_id","result":"branchesList"}},{"lookup":{"from":"category","field":"categories","match":"_id","result":"categoriesList"}},{"lookup":{"from":"business","field":"businessId","match":"_id","result":"business","op":"$eq"}}],"options":{"sort":{"_id":-1}}}
+
+===== LISTAR BANNERS =====
+find	https://localhost:9080/banner/v1/find	200	fetch	banner.action.js:205	967 B
+{"filters":{"benefitId":{"$exists":true}},"aggregates":[{"lookup":{"from":"benefit","field":"benefitId","match":"_id","result":"benefit","op":"$eq"}}],"options":{"sort":{"_id":-1},"limit":5,"skip":0}}
+só tem esse acima
+
+===== LISTAR CONTEÚDOS =====
+find	https://localhost:9300/content/v1/find	200	fetch	content.action.js:132	1.0 kB
+{"filters":{},"options":{"sort":{"_id":1},"limit":5,"skip":0}}
+{"filters":{"name":{"$regex":"nome_descritivo","$options":"i"},"body":{"$regex":"conteudo","$options":"i"},"identifier":{"$regex":"identificador","$options":"i"}},"options":{"sort":{"_id":1},"limit":5,"skip":0}}
+
+===== LISTAR FAQ =====
+find	https://localhost:9070/faq/v1/find	200	fetch	faq.action.js:133	1.4 kB	586 ms
+{"filters":{},"options":{"sort":{"weight":1},"limit":5,"skip":0}}
+{"filters":{"title":{"$regex":"titulo","$options":"i"},"status":"true"},"options":{"sort":{"weight":1},"limit":5,"skip":0}}
+
